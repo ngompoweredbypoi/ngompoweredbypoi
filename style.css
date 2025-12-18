@@ -1,0 +1,630 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2563eb;       /* Blue */
+    --primary-dark: #1d4ed8;
+    --secondary: #7c3aed;     /* Purple */
+    --text: #1f2937;          /* Gray-900 */
+    --text-light: #6b7280;    /* Gray-500 */
+    --bg: #ffffff;
+    --bg-light: #f9fafb;
+    --bg-card: #ffffff;
+    --border: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+    --radius-lg: 12px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.5rem; }
+
+.highlight {
+    color: var(--primary);
+    position: relative;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: rgba(37, 99, 235, 0.2);
+    z-index: -1;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    padding: 1.5rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* STEP 1: Make ALL nav items (links AND button) consistent */
+.nav-item {
+    /* Same for both <a> and <button> */
+    color: var(--text-light); /* Your exact nav text color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: inline-block; /* Prevents movement */
+}
+
+/* Remove button defaults */
+.nav-item.lang-btn {
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    display: flex; /* Keep flag+text aligned */
+    align-items: center;
+}
+
+/* Hover effect - SAME for both */
+.nav-item:hover {
+    color: var(--primary); /* Your link hover color */
+    transform: none !important; /* Prevents any movement */
+}
+
+/* If your existing links have specific hover, match it */
+.nav-item.lang-btn:hover {
+    /* Make it behave EXACTLY like other links */
+    background: transparent !important;
+    transform: translateY(0) !important;
+}
+
+/* Optional: If you want visual separation */
+.nav-item.lang-btn {
+    margin-right: 0rem;
+    border-right: 0px solid rgba(0,0,0,0);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.dot {
+    color: var(--primary);
+}
+
+.nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.cta-button {
+    background: var(--primary);
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--radius);
+    transition: background 0.2s;
+}
+
+.cta-button:hover {
+    background: var(--primary-dark);
+}
+
+/* ===== HERO ===== */
+.hero {
+    padding: 10rem 0 6rem;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    margin-top: 80px;
+}
+
+.hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.hero-tagline {
+    margin-bottom: 1.5rem;
+    font-size: 3.2rem;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: 2px solid var(--primary);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text);
+    border: 2px solid var(--border);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.countdown {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    display: inline-block;
+    box-shadow: var(--shadow);
+}
+
+.countdown p {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+}
+
+#countdown-timer {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 6rem;
+    box-shadow: var(--shadow-lg);
+}
+
+/* ===== SECTIONS ===== */
+section {
+    padding: 6rem 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* ===== PROJECTS ===== */
+.projects {
+    background: var(--bg-light);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.lang-btn:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.lang-flag {
+    font-size: 1.2rem;
+}
+
+.lang-code {
+    color: #1f2937;
+}
+
+/* For RTL (Arabic) support */
+[dir="rtl"] body {
+    text-align: right;
+    font-family: 'Almarai', sans-serif;
+}
+
+[dir="rtl"] .logo {
+    font-family: 'Almarai', sans-serif; /* Arabic-friendly font */
+}
+
+.project-card {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.project-status {
+    background: #dcfce7;
+    color: #166534;
+    padding: 0.3rem 0.8rem;
+    border-radius: 25px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.project-desc {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+    background: #e0f2fe;
+    color: #075985;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.project-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-link:hover {
+    text-decoration: underline;
+}
+
+/* ===== SKILLS ===== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.skill-category h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.skill-category ul {
+    list-style: none;
+}
+
+.skill-category li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.skill-category li:last-child {
+    border-bottom: none;
+}
+
+/* ===== ABOUT ===== */
+.about-points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.point {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+}
+
+.point i {
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: #e0f2fe;
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.point h4 {
+    margin-bottom: 0.5rem;
+}
+
+/* ===== CONTACT ===== */
+.contact {
+    text-align: center;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+    color: white;
+}
+
+.contact h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.contact p {
+    color: #d1d5db;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+}
+
+.btn-large {
+    padding: 1rem 3rem;
+    font-size: 1.125rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.social-links svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    vertical-align: middle;
+}
+
+.social-links img {
+    width: 1.2rem;
+    height: 1.2rem;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+/* Make the linked X/brand image appear white to match other icons and align it */
+.social-links img {
+    filter: invert(1) brightness(2);
+    transform: translateY(-3px);
+}
+
+/* Slightly lower other icon types to visually match the X mark */
+.social-links i,
+.social-links svg {
+    display: inline-block;
+    transform: translateY(-1px);
+}
+
+.social-links a:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+}
+
+.footer-sub {
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-tagline {
+        font-size: 2.5rem;
+    }
+    
+    /* Hide nav links by default on small screens; animate open/close via max-height */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        width: 100%;
+        background: rgba(255,255,255,0.98);
+        /* start collapsed */
+        max-height: 0;
+        /* small collapsed padding to avoid sudden layout jumps */
+        padding: 0.25rem 0;
+        overflow: hidden;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        transition: max-height 240ms cubic-bezier(.22,.9,.3,1), padding 240ms cubic-bezier(.22,.9,.3,1), opacity 180ms ease;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .nav-links.open {
+        max-height: 480px; /* large enough to show links */
+        opacity: 1;
+        pointer-events: auto;
+        padding: 0.75rem 0;
+    }
+
+    .nav-sep {
+        display: none;
+    }
+
+    /* Hamburger button (hidden on larger screens) */
+    .nav-toggle {
+        display: inline-flex;
+        position: relative;
+        width: 42px;
+        height: 42px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Use absolutely positioned bars so they rotate around center smoothly */
+    .nav-toggle .bar {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 2px;
+        background: var(--text-light);
+        border-radius: 2px;
+        transition: transform 220ms cubic-bezier(.22,.9,.3,1), opacity 180ms ease, background 180ms ease;
+        transform-origin: center;
+    }
+
+    .nav-toggle .bar:nth-child(1) { top: 12px; }
+    .nav-toggle .bar:nth-child(2) { top: 20px; }
+    .nav-toggle .bar:nth-child(3) { top: 28px; }
+
+    /* When open, top and bottom rotate to form a clean X; middle fades */
+    .nav-toggle.open .bar:nth-child(1) {
+        transform: translateX(-50%) translateY(8px) rotate(45deg);
+        background: var(--text);
+    }
+
+    .nav-toggle.open .bar:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-50%) scaleX(0.2);
+    }
+
+    .nav-toggle.open .bar:nth-child(3) {
+        transform: translateX(-50%) translateY(-8px) rotate(-45deg);
+        background: var(--text);
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduce hero spacing and image on phones */
+    .hero {
+        padding: 6rem 0 3rem;
+    }
+
+    .image-placeholder {
+        width: 220px;
+        height: 220px;
+        font-size: 4.5rem;
+    }
+}

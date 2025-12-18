@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammed Mokhtar | Developer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!--Navigation Section-->
+<nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo" data-i18n="nav-name">Muhammed Mokhtar</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="nav-links">
+            <!-- Added 'nav-item' class to match others -->
+            <button id="language-toggle" class="nav-item lang-btn">
+                <span class="lang-text" data-i18n="nav-language">English</span>
+            </button>
+            <span class="nav-sep nav-item">|</span>
+            <!-- Your existing links should have 'nav-item' class -->
+            <a href="#projects" class="nav-item" data-i18n="nav-projects">Projects</a>
+            <a href="#skills" class="nav-item" data-i18n="nav-skills">Skills</a>
+            <a href="#about" class="nav-item" data-i18n="nav-about">About</a>
+            <a href="https://www.upwork.com/freelancers/~0129f83cc95f528f00" class="cta-button" data-i18n="nav-contact" target="_blank" rel="noopener noreferrer">Hire Me</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-tagline" data-i18n="hero-title">Turning from <span class="highlight">zero</span> to <span class="highlight">hero</span> through code</h1>
+            <p class="hero-subtitle" data-i18n="hero-subtitle">Frontend Developer · A-Level Student · Building the web one commit at a time.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn-primary" data-i18n="hero-button-projects">See My Work</a>
+                <a href="https://github.com/ngompoweredbypoi" target="_blank" class="btn-secondary">
+                    <i class="fab fa-github"></i> <span data-i18n="hero-button-github">GitHub</span>
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <!-- Replace with your photo or cool illustration -->
+            <div class="image-placeholder">
+                <i class="fas fa-code"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="projects" class="projects">
+    <div class="container">
+        <h2 class="section-title" data-i18n="projects-title">Projects</h2>
+        <div class="projects-grid">
+            
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 data-i18n="project-1-title">Launch Site</h3>
+                    <span class="project-status" data-i18n="project-1-status">Live</span>
+                </div>
+                <p class="project-desc" data-i18n="project-1-desc">This website was built for my 18th Birthday. Pure HTML/CSS/JS.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+            </div>
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 data-i18n="project-2-title">A-Level Study Tools</h3>
+                    <span class="project-status" data-i18n="project-2-status">In Progress</span>
+                </div>
+                <p class="project-desc" data-i18n="project-2-desc">Interactive calculators and visualizers for Math/Physics formulas.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">Chart.js</span>
+                </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 data-i18n="project-3-title">Local Business Redesign</h3>
+                    <span class="project-status" data-i18n="project-3-status">Coming Soon</span>
+                </div>
+                <p class="project-desc" data-i18n="project-3-desc">Modern website redesign for a local cafe (pre-launch project).</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Responsive</span>
+                    <span class="tech-tag">UI/UX</span>
+                    <span class="tech-tag">Mobile First</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="skills">
+    <div class="container">
+        <h2 class="section-title" data-i18n="skills-title">Skills & Stack</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> <span data-i18n="skills-frontend">Front-End</span></h3>
+                <ul>
+                    <li>HTML5 & Semantic Markup</li>
+                    <li>CSS3 & Flexbox/Grid</li>
+                    <li>JavaScript (ES6+)</li>
+                    <li>Responsive Design</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-tools"></i> <span data-i18n="skills-tools">Tools</span></h3>
+                <ul>
+                    <li>Git & GitHub</li>
+                    <li>VS Code</li>
+                    <li>Figma Basics</li>
+                    <li>GitHub Pages</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-graduation-cap"></i> <span data-i18n="skills-learning">Learning</span></h3>
+                <ul>
+                    <li>React.js</li>
+                    <li>Node.js Basics</li>
+                    <li>UI/UX Principles</li>
+                    <li>Web Performance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about">
+    <div class="container">
+        <div class="about-content">
+            <h2 class="section-title" data-i18n="about-title">From A-Levels to Code</h2>
+            <p data-i18n="about-text">Currently balancing betweeen my college and while building a career in web development. It isn't just about college— it's about launching a professional journey.</p>
+            <div class="about-points">
+                <div class="point">
+                    <i class="fas fa-rocket"></i>
+                    <div>
+                        <h4 data-i18n="about-1-title">Launch Mode</h4>
+                        <p data-i18n="about-1-desc">Website goes live with my 18th birthday.</p>
+                    </div>
+                </div>
+                <div class="point">
+                    <i class="fas fa-bolt"></i>
+                    <div>
+                        <h4 data-i18n="about-2-title">Fast Learner</h4>
+                        <p data-i18n="about-2-desc">From HTML to projects in 3 months.</p>
+                    </div>
+                </div>
+                <div class="point">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <h4 data-i18n="about-3-title">Available Now</h4>
+                        <p data-i18n="about-3-desc">Accepting freelance projects <strong>Globally.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA -->
+<section id="contact" class="contact">
+    <div class="container">
+        <h2 data-i18n="contact-title">Ready to Build Something?</h2>
+        <p data-i18n="contact-text">Let's create your website. I'm available for projects starting <strong data-i18n="contact-rn">now</strong>.</p>
+        <a href="https://t.me/ngompoweredbypoi" target="_blank" class="btn-primary btn-large">
+            <i class="fas fa-paper-plane"></i> <span data-i18n="contact-telegram">I'm here on Telegram</span>
+        </a>
+        <div class="social-links">
+            <a href="https://github.com/ngompoweredbypoi" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <!-- X social link removed -->
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p class="footer-sub"><span data-i18n="footer-copyright">&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All rights reserved.</span></p>
+        <p class="footer-sub" data-i18n="footer-text">Built with ❤️ by Mokho, my nickname.</p>
+        <p class="footer-sub" data-i18n="footer-note">This website is made by AI, Deepseek. He did it for me when I told him about my Birthday LOL. Don't worry, I can build the exact same website too (and better).</p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
