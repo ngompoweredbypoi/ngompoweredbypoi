@@ -153,13 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.cookie = cookie;
     }
 
-    function getBrowserLangCode() {
-        const browserLang = (navigator.languages && navigator.languages.length)
-            ? navigator.languages[0]
-            : (navigator.language || navigator.userLanguage || 'en');
-        return String(browserLang).toLowerCase().startsWith('ar') ? 'ar' : 'en';
-    }
-
     function getSavedLangCode() {
         // 1) Cookie (highest priority)
         const cookieLang = getCookie(LANG_KEY);
@@ -205,14 +198,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function detectPreferredLangCode() {
-        // Priority: cookie/localStorage > IP-based > browser language
+        // Priority: cookie/localStorage > IP-based > default
         const saved = getSavedLangCode();
         if (saved) return saved;
 
         const ipLang = await getIpBasedLangCode();
         if (ipLang === 'ar' || ipLang === 'en') return ipLang;
 
-        return getBrowserLangCode();
+        // If GeoIP fails (blocked, offline, adblock, etc.), default to English.
+        // Persist the default so subsequent loads don't re-request GeoIP.
+        setCookie(LANG_KEY, 'en');
+        localStorage.setItem(LANG_KEY, 'en');
+        return 'en';
     }
     
     // Apply translations to page
