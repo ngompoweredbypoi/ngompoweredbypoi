@@ -140,9 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function setCookie(name, value, days) {
-        const maxAge = typeof days === 'number' ? Math.floor(days * 24 * 60 * 60) : (365 * 24 * 60 * 60);
+        // "Forever" cookies aren't truly forever; browsers may cap lifetimes.
+        // We set a long lifetime (20 years) so it persists unless the user clears cookies.
+        const defaultDays = 365 * 20;
+        const ttlDays = (typeof days === 'number' && Number.isFinite(days)) ? days : defaultDays;
+        const maxAge = Math.max(0, Math.floor(ttlDays * 24 * 60 * 60));
+        const expires = new Date(Date.now() + (maxAge * 1000)).toUTCString();
+
         const encoded = encodeURIComponent(value);
-        let cookie = `${name}=${encoded}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
+        let cookie = `${name}=${encoded}; Max-Age=${maxAge}; Expires=${expires}; Path=/; SameSite=Lax`;
         if (location.protocol === 'https:') cookie += '; Secure';
         document.cookie = cookie;
     }
@@ -155,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Backwards-compat: if previous versions saved to localStorage, honor it once
         const savedLang = localStorage.getItem(LANG_KEY);
         if (savedLang === 'ar' || savedLang === 'en') {
-            setCookie(LANG_KEY, savedLang, 365);
+            setCookie(LANG_KEY, savedLang);
             return savedLang === 'ar';
         }
 
@@ -202,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Save preference
         localStorage.setItem(LANG_KEY, lang);
-        setCookie(LANG_KEY, lang, 365);
+        setCookie(LANG_KEY, lang);
         
         console.log(`🌍 Language set to: ${lang.toUpperCase()}`);
     }
