@@ -514,6 +514,16 @@ footer {
     margin-top: 0.5rem;
 }
 
+.footer-source-link {
+    color: var(--text-light);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.footer-source-link:hover {
+    color: var(--primary);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
