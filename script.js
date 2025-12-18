@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer-note': 'الموقع ده معمول بالذكاء الاصطناعي، ديبسيك. هو عملهولي لما قلت له عن عيد ميلادي. بس متقلقش، أنا كمان أقدر اعمل نفس الموقع بالظبط (وأحسن).'
             ,
             'footer-copyright': '&copy; <span id="current-year">٢٠٢٦</span> محمد مختار. جميع الحقوق محفوظة.',
-            'footer-source': 'شفرة مصدر الموقع'
+            'footer-source': 'مصدر الموقع'
         }
     };
     
