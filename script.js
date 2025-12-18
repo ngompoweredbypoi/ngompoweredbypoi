@@ -153,22 +153,66 @@ document.addEventListener('DOMContentLoaded', function() {
         document.cookie = cookie;
     }
 
-    // Determine default language (cookie > localStorage > browser language)
-    function shouldStartWithArabic() {
-        const cookieLang = getCookie(LANG_KEY);
-        if (cookieLang === 'ar' || cookieLang === 'en') return cookieLang === 'ar';
-
-        // Backwards-compat: if previous versions saved to localStorage, honor it once
-        const savedLang = localStorage.getItem(LANG_KEY);
-        if (savedLang === 'ar' || savedLang === 'en') {
-            setCookie(LANG_KEY, savedLang);
-            return savedLang === 'ar';
-        }
-
+    function getBrowserLangCode() {
         const browserLang = (navigator.languages && navigator.languages.length)
             ? navigator.languages[0]
             : (navigator.language || navigator.userLanguage || 'en');
-        return String(browserLang).toLowerCase().startsWith('ar');
+        return String(browserLang).toLowerCase().startsWith('ar') ? 'ar' : 'en';
+    }
+
+    function getSavedLangCode() {
+        // 1) Cookie (highest priority)
+        const cookieLang = getCookie(LANG_KEY);
+        if (cookieLang === 'ar' || cookieLang === 'en') return cookieLang;
+
+        // 2) Backwards-compat: older versions used localStorage
+        const savedLang = localStorage.getItem(LANG_KEY);
+        if (savedLang === 'ar' || savedLang === 'en') {
+            setCookie(LANG_KEY, savedLang);
+            return savedLang;
+        }
+
+        return null;
+    }
+
+    function isArabicCountry(countryCode) {
+        // Arabic-speaking / MENA countries (best-effort, not perfect)
+        const arCountries = new Set([
+            'AE','BH','DJ','DZ','EG','IQ','JO','KW','LB','LY','MA','MR','OM','PS','QA','SA','SD','SO','SY','TN','YE'
+        ]);
+        return arCountries.has(String(countryCode || '').toUpperCase());
+    }
+
+    async function getIpBasedLangCode() {
+        // Calls a third-party GeoIP endpoint. If it fails, we fall back gracefully.
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        try {
+            const res = await fetch('https://ipapi.co/json/', {
+                signal: controller.signal,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (!res.ok) return null;
+            const data = await res.json();
+            const country = data && (data.country_code || data.country);
+            if (!country) return null;
+            return isArabicCountry(country) ? 'ar' : 'en';
+        } catch {
+            return null;
+        } finally {
+            clearTimeout(timeoutId);
+        }
+    }
+
+    async function detectPreferredLangCode() {
+        // Priority: cookie/localStorage > IP-based > browser language
+        const saved = getSavedLangCode();
+        if (saved) return saved;
+
+        const ipLang = await getIpBasedLangCode();
+        if (ipLang === 'ar' || ipLang === 'en') return ipLang;
+
+        return getBrowserLangCode();
     }
     
     // Apply translations to page
@@ -220,8 +264,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize
-    const startWithArabic = shouldStartWithArabic();
-    setLanguage(startWithArabic);
+    detectPreferredLangCode().then(langCode => {
+        setLanguage(langCode === 'ar');
+    });
     
     // Add click event
     langBtn.addEventListener('click', toggleLanguage);
