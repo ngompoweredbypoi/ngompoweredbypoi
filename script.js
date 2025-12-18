@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'projects-title': 'Projects',
             'project-1-title': 'Countdown Launch Site',
             'project-1-status': 'Live',
-            'project-1-desc': 'This portfolio was built for my 18th Birthday. Pure HTML/CSS/JS.',
+            'project-1-desc': 'This portfolio was built for my 18th Birthday. It\'s made with is-a.dev Domain, which is completely free. Also, my website is open source. Pure HTML/CSS/JS.',
             'project-2-title': 'A-Level Study Tools',
             'project-2-status': 'In Progress',
             'project-2-desc': 'Interactive calculators and visualizers for Math/Physics formulas.',
@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Footer
             'footer-text': 'Built with ❤️ by Mokho, my nickname.',
             'footer-note': 'This website is made by AI, Deepseek. He did it for me when I told him about my Birthday LOL. Don\'t worry, I can build the exact same website too (and better).',
-            'footer-copyright': '&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All rights reserved.'
+            'footer-copyright': '&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All rights reserved.',
+            'footer-source': 'Website Source Code'
         },
         
         ar: {
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'projects-title': 'المشاريع',
             'project-1-title': 'موقعي الجديد',
             'project-1-status': 'مباشر',
-            'project-1-desc': 'حياتي الجديدة بتبتدي مع عيد ميلادي ال١٨. HTML/CSS/JS خالص.',
+            'project-1-desc': 'حياتي الجديدة بتبتدي مع عيد ميلادي ال١٨. الموقع مجاني باستخدام دومين is-a.dev. ده غير كمان ان الموقع ده مفتوح المصدر. HTML/CSS/JS خالص.',
             'project-2-status': 'تحت الإنشاء',
             'project-2-title': 'أدوات دراسة A-Levels',
             'project-2-desc': 'آلات حاسبة تفاعلية ومرئيات لصيغ الرياضيات والفيزياء.',
@@ -116,7 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer-text': 'بُني بكل ❤️ من محمد.',
             'footer-note': 'الموقع ده معمول بالذكاء الاصطناعي، ديبسيك. هو عملهولي لما قلت له عن عيد ميلادي. بس متقلقش، أنا كمان أقدر اعمل نفس الموقع بالظبط (وأحسن).'
             ,
-            'footer-copyright': '&copy; <span id="current-year">٢٠٢٦</span> محمد مختار. جميع الحقوق محفوظة.'
+            'footer-copyright': '&copy; <span id="current-year">٢٠٢٦</span> محمد مختار. جميع الحقوق محفوظة.',
+            'footer-source': 'شفرة مصدر الموقع'
         }
     };
     
