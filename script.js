@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cache frequently-used elements
     const langText = document.querySelector('.lang-text');
     const translatableElements = Array.from(document.querySelectorAll('[data-i18n]'));
+    const LANG_KEY = 'portfolio-lang';
     
     if (!langBtn) return;
     
@@ -60,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Footer
             'footer-text': 'Built with ❤️ by Mokho, my nickname.',
-            'footer-note': 'This website is made by AI, Deepseek. He did it for me when I told him about my Birthday LOL. Don\'t worry, I can build the exact same website too (and better).',
             'footer-copyright': '&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All rights reserved.',
             'footer-source': 'Website Source Code'
         },
@@ -115,20 +115,54 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Footer
             'footer-text': 'بُني بكل ❤️ من محمد.',
-            'footer-note': 'الموقع ده معمول بالذكاء الاصطناعي، ديبسيك. هو عملهولي لما قلت له عن عيد ميلادي. بس متقلقش، أنا كمان أقدر اعمل نفس الموقع بالظبط (وأحسن).'
-            ,
             'footer-copyright': '&copy; <span id="current-year">٢٠٢٦</span> محمد مختار. جميع الحقوق محفوظة.',
             'footer-source': 'مصدر الموقع'
         }
     };
     
-    // Check if user prefers Arabic
+    function getCookie(name) {
+        const cookieStr = document.cookie || '';
+        const parts = cookieStr.split(';');
+        for (let i = 0; i < parts.length; i++) {
+            const part = parts[i].trim();
+            if (!part) continue;
+            const eqIndex = part.indexOf('=');
+            const key = eqIndex >= 0 ? part.slice(0, eqIndex) : part;
+            if (key !== name) continue;
+            const value = eqIndex >= 0 ? part.slice(eqIndex + 1) : '';
+            try {
+                return decodeURIComponent(value);
+            } catch {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    function setCookie(name, value, days) {
+        const maxAge = typeof days === 'number' ? Math.floor(days * 24 * 60 * 60) : (365 * 24 * 60 * 60);
+        const encoded = encodeURIComponent(value);
+        let cookie = `${name}=${encoded}; Max-Age=${maxAge}; Path=/; SameSite=Lax`;
+        if (location.protocol === 'https:') cookie += '; Secure';
+        document.cookie = cookie;
+    }
+
+    // Determine default language (cookie > localStorage > browser language)
     function shouldStartWithArabic() {
-        const savedLang = localStorage.getItem('portfolio-lang');
-        if (savedLang) return savedLang === 'ar';
-        
-        const browserLang = navigator.language || navigator.userLanguage;
-        return browserLang.startsWith('ar');
+        const cookieLang = getCookie(LANG_KEY);
+        if (cookieLang === 'ar' || cookieLang === 'en') return cookieLang === 'ar';
+
+        // Backwards-compat: if previous versions saved to localStorage, honor it once
+        const savedLang = localStorage.getItem(LANG_KEY);
+        if (savedLang === 'ar' || savedLang === 'en') {
+            setCookie(LANG_KEY, savedLang, 365);
+            return savedLang === 'ar';
+        }
+
+        const browserLang = (navigator.languages && navigator.languages.length)
+            ? navigator.languages[0]
+            : (navigator.language || navigator.userLanguage || 'en');
+        return String(browserLang).toLowerCase().startsWith('ar');
     }
     
     // Apply translations to page
@@ -167,7 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
         applyTranslations(lang);
         
         // Save preference
-        localStorage.setItem('portfolio-lang', lang);
+        localStorage.setItem(LANG_KEY, lang);
+        setCookie(LANG_KEY, lang, 365);
         
         console.log(`🌍 Language set to: ${lang.toUpperCase()}`);
     }
