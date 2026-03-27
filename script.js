@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function readAdsEnabledPref() {
         const raw = localStorage.getItem(ADS_PREF_KEY);
-        if (raw === null) return true; // default: on
+        if (raw === null) return false; // default: off
         return raw === 'true';
     }
 

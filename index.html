@@ -14,8 +14,8 @@
             try {
                 var key = 'ads-enabled';
                 var enabled = localStorage.getItem(key);
-                // Default: enabled
-                if (enabled === null || enabled === 'true') {
+                // Default: disabled (only load if user explicitly enables)
+                if (enabled === 'true') {
                     var s = document.createElement('script');
                     s.id = 'adsbygoogle-js';
                     s.async = true;
@@ -24,13 +24,7 @@
                     document.head.appendChild(s);
                 }
             } catch (e) {
-                // If storage is blocked, fall back to enabled.
-                var s2 = document.createElement('script');
-                s2.id = 'adsbygoogle-js';
-                s2.async = true;
-                s2.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6238413988078246';
-                s2.crossOrigin = 'anonymous';
-                document.head.appendChild(s2);
+                // If storage is blocked, keep default disabled.
             }
         })();
     </script>
