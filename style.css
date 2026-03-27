@@ -28,6 +28,15 @@ body {
     background: var(--bg);
 }
 
+/* When ads are disabled, hide common AdSense ad elements */
+html.ads-disabled ins.adsbygoogle,
+html.ads-disabled .adsbygoogle,
+html.ads-disabled iframe[id^="aswift_"],
+html.ads-disabled iframe[src*="googleads"],
+html.ads-disabled iframe[src*="doubleclick.net"] {
+    display: none !important;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -69,14 +78,26 @@ h3 { font-size: 1.5rem; }
     top: 0;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: 2000;
     border-bottom: 1px solid var(--border);
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.nav-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+}
+
+/* Keep the hamburger aligned with the logo line */
+.nav-toggle {
+    margin-top: 0.15rem;
 }
 
 /* STEP 1: Make ALL nav items (links AND button) consistent */
@@ -97,6 +118,113 @@ h3 { font-size: 1.5rem; }
     cursor: pointer;
     display: flex; /* Keep flag+text aligned */
     align-items: center;
+}
+
+/* Ads toggle: switch + tooltip */
+.ads-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ads-toggle--small {
+    font-size: 0.8rem;
+}
+
+.ads-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: var(--radius);
+}
+
+.ads-toggle-label {
+    line-height: 1;
+}
+
+.ads-toggle-track {
+    width: 32px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--primary);
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.ads-toggle-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    transition: left 0.2s;
+}
+
+.ads-toggle.is-off .ads-toggle-thumb {
+    left: 2px;
+}
+
+.ads-toggle.is-off .ads-toggle-track {
+    background: var(--border);
+}
+
+/* RTL: mirror switch direction */
+html[dir="rtl"] .ads-toggle-thumb {
+    left: 2px;
+}
+
+html[dir="rtl"] .ads-toggle.is-off .ads-toggle-thumb {
+    left: 16px;
+}
+
+html[dir="rtl"] .ads-tooltip {
+    left: auto;
+    right: 0;
+    text-align: right;
+}
+
+.ads-tooltip {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.75rem;
+    color: var(--text);
+    font-size: 0.875rem;
+    white-space: normal;
+    max-width: min(98vw, 520px);
+    overflow-wrap: break-word;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s;
+    z-index: 1100;
+}
+
+@media (min-width: 769px) {
+    .ads-tooltip {
+        white-space: nowrap;
+        max-width: min(55vw, 560px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.ads-toggle:hover .ads-tooltip,
+.ads-toggle:focus-visible .ads-tooltip {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Hover effect - SAME for both */
@@ -528,6 +656,11 @@ footer {
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
+
+    /* Make the page feel less wide on mobile */
+    .container {
+        padding: 0 24px;
+    }
     
     .hero .container {
         grid-template-columns: 1fr;
@@ -551,20 +684,34 @@ footer {
         /* small collapsed padding to avoid sudden layout jumps */
         padding: 0.25rem 0;
         overflow: hidden;
-        position: absolute;
-        top: 72px;
+        position: fixed;
+        top: 62px;
         left: 0;
+        right: 0;
         box-shadow: 0 6px 18px rgba(0,0,0,0.06);
         transition: max-height 240ms cubic-bezier(.22,.9,.3,1), padding 240ms cubic-bezier(.22,.9,.3,1), opacity 180ms ease;
         opacity: 0;
         pointer-events: none;
+        z-index: 1500;
     }
 
     .nav-links.open {
-        max-height: 480px; /* large enough to show links */
+        max-height: calc(100vh - 62px);
         opacity: 1;
         pointer-events: auto;
         padding: 0.75rem 0;
+        z-index: 1500;
+    }
+
+    /* Make the ads hover tooltip window wider on mobile */
+    .ads-tooltip {
+        width: fit-content;
+        max-width: min(90vw, 320px);
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: break-word;
+        padding: 0.45rem 0.6rem;
     }
 
     .nav-sep {

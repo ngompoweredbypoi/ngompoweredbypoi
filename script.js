@@ -1,11 +1,121 @@
 // Language Toggle with Translations
 document.addEventListener('DOMContentLoaded', function() {
+    // Ads toggle (AdSense loader)
+    const ADS_PREF_KEY = 'ads-enabled';
+    const ADSENSE_CLIENT = 'ca-pub-6238413988078246';
+    const ADSENSE_SCRIPT_ID = 'adsbygoogle-js';
+    const adsToggleBtn = document.getElementById('ads-toggle');
+
+    function readAdsEnabledPref() {
+        const raw = localStorage.getItem(ADS_PREF_KEY);
+        if (raw === null) return true; // default: on
+        return raw === 'true';
+    }
+
+    function writeAdsEnabledPref(enabled) {
+        localStorage.setItem(ADS_PREF_KEY, String(Boolean(enabled)));
+    }
+
+    function setAdsToggleUi(enabled) {
+        if (!adsToggleBtn) return;
+        adsToggleBtn.setAttribute('aria-checked', enabled ? 'true' : 'false');
+        adsToggleBtn.classList.toggle('is-off', !enabled);
+    }
+
+    function ensureAdSenseScriptLoaded() {
+        if (document.getElementById(ADSENSE_SCRIPT_ID)) return;
+        const script = document.createElement('script');
+        script.id = ADSENSE_SCRIPT_ID;
+        script.async = true;
+        script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(ADSENSE_CLIENT)}`;
+        script.crossOrigin = 'anonymous';
+        document.head.appendChild(script);
+    }
+
+    function ensureAdSenseScriptLoadedAndThen(cb) {
+        const existing = document.getElementById(ADSENSE_SCRIPT_ID);
+        if (existing) {
+            if (typeof cb === 'function') cb();
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.id = ADSENSE_SCRIPT_ID;
+        script.async = true;
+        script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(ADSENSE_CLIENT)}`;
+        script.crossOrigin = 'anonymous';
+        if (typeof cb === 'function') {
+            script.addEventListener('load', () => cb(), { once: true });
+        }
+        document.head.appendChild(script);
+    }
+
+    function removeAdSenseScript() {
+        const existing = document.getElementById(ADSENSE_SCRIPT_ID);
+        if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
+    }
+
+    function setAdsHidden(hidden) {
+        document.documentElement.classList.toggle('ads-disabled', Boolean(hidden));
+    }
+
+    function requestAdRenders() {
+        // If the page uses <ins class="adsbygoogle"> blocks, attempt to (re)render them.
+        const ins = document.querySelectorAll('ins.adsbygoogle');
+        if (!ins || ins.length === 0) return;
+        try {
+            ins.forEach(el => {
+                const status = el.getAttribute('data-adsbygoogle-status');
+                if (status === 'done') return;
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            });
+        } catch {
+            // ignore
+        }
+    }
+
+    function applyAdsPreference() {
+        const enabled = readAdsEnabledPref();
+        setAdsToggleUi(enabled);
+        setAdsHidden(!enabled);
+        if (enabled) {
+            ensureAdSenseScriptLoadedAndThen(() => {
+                requestAdRenders();
+                // Some setups need a tick after script load
+                setTimeout(requestAdRenders, 250);
+            });
+        } else {
+            // Note: removing the loader script does not necessarily remove already-rendered ads.
+            // To fully hide ads, also hide your ad containers (if any) in the page.
+            removeAdSenseScript();
+        }
+    }
+
+    if (adsToggleBtn) {
+        const toggle = () => {
+            const next = !readAdsEnabledPref();
+            writeAdsEnabledPref(next);
+            applyAdsPreference();
+        };
+
+        adsToggleBtn.addEventListener('click', toggle);
+        adsToggleBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
+            }
+        });
+    }
+
     const langBtn = document.getElementById('language-toggle');
     // Cache frequently-used elements
     const langText = document.querySelector('.lang-text');
     const translatableElements = Array.from(document.querySelectorAll('[data-i18n]'));
     const LANG_KEY = 'portfolio-lang';
     
+    // Apply ads preference early in the lifecycle (still within DOMContentLoaded)
+    applyAdsPreference();
+
     if (!langBtn) return;
     
     // Translation dictionary
@@ -18,6 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav-about': 'About',
             'nav-contact': 'Hire Me',
             'nav-language': 'English',
+
+            // Ads
+            'ads-label': 'Ads',
+            'ads-tooltip': 'Turn ads off or on. Please keep them on to support my development.',
             
             // Hero Section
             'hero-title': 'Turning from <span class="highlight">zero</span> to <span class="highlight">hero</span> through code.',
@@ -73,6 +187,10 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav-about': 'عني',
             'nav-contact': 'وظفني',
             'nav-language': 'العربية',
+
+            // Ads
+            'ads-label': 'الإعلانات',
+            'ads-tooltip': 'شغل أو طفي الإعلانات. رجاءً أدعمني بتركها مفعلة.',
             
             // Hero Section
             'hero-title': 'بتحول من <span class="highlight">صفر</span> إلى <span class="highlight">خارق</span> من خلال البرمجة.',
