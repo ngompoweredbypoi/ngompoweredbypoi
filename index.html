@@ -9,25 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
-    <script>
-        (function () {
-            try {
-                var key = 'ads-enabled';
-                var enabled = localStorage.getItem(key);
-                // Default: disabled (only load if user explicitly enables)
-                if (enabled === 'true') {
-                    var s = document.createElement('script');
-                    s.id = 'adsbygoogle-js';
-                    s.async = true;
-                    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6238413988078246';
-                    s.crossOrigin = 'anonymous';
-                    document.head.appendChild(s);
-                }
-            } catch (e) {
-                // If storage is blocked, keep default disabled.
-            }
-        })();
-    </script>
 </head>
 <body>
 <!--Navigation Section-->
@@ -35,11 +16,6 @@
     <div class="container">
         <div class="nav-brand">
             <a href="#" class="logo" data-i18n="nav-name">Muhammed Mokhtar</a>
-            <div class="ads-toggle ads-toggle--small" id="ads-toggle" role="switch" aria-checked="true" tabindex="0" aria-label="Toggle ads">
-                <span class="ads-toggle-label" data-i18n="ads-label">Ads</span>
-                <span class="ads-toggle-track" aria-hidden="true"><span class="ads-toggle-thumb"></span></span>
-                <span class="ads-tooltip" role="tooltip" data-i18n="ads-tooltip">Turn ads off or on. Please keep them on to support my development.</span>
-            </div>
         </div>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span class="bar"></span>

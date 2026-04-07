@@ -28,15 +28,6 @@ body {
     background: var(--bg);
 }
 
-/* When ads are disabled, hide common AdSense ad elements */
-html.ads-disabled ins.adsbygoogle,
-html.ads-disabled .adsbygoogle,
-html.ads-disabled iframe[id^="aswift_"],
-html.ads-disabled iframe[src*="googleads"],
-html.ads-disabled iframe[src*="doubleclick.net"] {
-    display: none !important;
-}
-
 .container {
     width: 100%;
     max-width: 1200px;
@@ -118,113 +109,6 @@ h3 { font-size: 1.5rem; }
     cursor: pointer;
     display: flex; /* Keep flag+text aligned */
     align-items: center;
-}
-
-/* Ads toggle: switch + tooltip */
-.ads-toggle {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-light);
-    font-weight: 500;
-    cursor: pointer;
-    user-select: none;
-}
-
-.ads-toggle--small {
-    font-size: 0.8rem;
-}
-
-.ads-toggle:focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 4px;
-    border-radius: var(--radius);
-}
-
-.ads-toggle-label {
-    line-height: 1;
-}
-
-.ads-toggle-track {
-    width: 32px;
-    height: 18px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--primary);
-    position: relative;
-    flex: 0 0 auto;
-}
-
-.ads-toggle-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--bg);
-    position: absolute;
-    top: 50%;
-    left: 16px;
-    transform: translateY(-50%);
-    transition: left 0.2s;
-}
-
-.ads-toggle.is-off .ads-toggle-thumb {
-    left: 2px;
-}
-
-.ads-toggle.is-off .ads-toggle-track {
-    background: var(--border);
-}
-
-/* RTL: mirror switch direction */
-html[dir="rtl"] .ads-toggle-thumb {
-    left: 2px;
-}
-
-html[dir="rtl"] .ads-toggle.is-off .ads-toggle-thumb {
-    left: 16px;
-}
-
-html[dir="rtl"] .ads-tooltip {
-    left: auto;
-    right: 0;
-    text-align: right;
-}
-
-.ads-tooltip {
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    top: calc(100% + 10px);
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    border-radius: var(--radius);
-    padding: 0.5rem 0.75rem;
-    color: var(--text);
-    font-size: 0.875rem;
-    white-space: normal;
-    max-width: min(98vw, 520px);
-    overflow-wrap: break-word;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.15s;
-    z-index: 1100;
-}
-
-@media (min-width: 769px) {
-    .ads-tooltip {
-        white-space: nowrap;
-        max-width: min(55vw, 560px);
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
-.ads-toggle:hover .ads-tooltip,
-.ads-toggle:focus-visible .ads-tooltip {
-    opacity: 1;
-    visibility: visible;
 }
 
 /* Hover effect - SAME for both */
