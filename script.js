@@ -3,94 +3,58 @@ document.addEventListener('DOMContentLoaded', function() {
     const langBtn = document.getElementById('language-toggle');
     // Cache frequently-used elements
     const langText = document.querySelector('.lang-text');
-    const translatableElements = Array.from(document.querySelectorAll('[data-i18n]'));
     const LANG_KEY = 'portfolio-lang';
 
     if (!langBtn) return;
-    
-    // Translation dictionary
+
+    // Cache each element's original (English) HTML so switching back to English
+    // restores exactly what's written in index.html (even if keys are duplicated).
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        if (element.dataset.i18nEn == null) {
+            element.dataset.i18nEn = element.innerHTML;
+        }
+    });
+
+    // Translation dictionary (Arabic only; English comes from the HTML itself)
     const translations = {
-        en: {
-            // Navigation
-            'nav-name':'Muhammed Mokhtar',
-            'nav-projects': 'Projects',
-            'nav-skills': 'Skills',
-            'nav-about': 'About',
-            'nav-contact': 'Hire Me',
-            'nav-language': 'English',
-            
-            // Hero Section
-            'hero-title': 'Turning from <span class="highlight">zero</span> to <span class="highlight">hero</span> through code.',
-            'hero-subtitle': 'Frontend Developer · A-Level Student · Building the web one commit at a time.',
-            'hero-button-projects': 'See My Work',
-            'hero-button-github': 'GitHub',
-            
-            // Projects
-            'projects-title': 'Projects',
-            'project-1-title': 'Countdown Launch Site',
-            'project-1-status': 'Live',
-            'project-1-desc': 'This portfolio was built for my 18th Birthday. It\'s made with is-a.dev Domain, which is completely free. Also, my website is open source. Pure HTML/CSS/JS.',
-            'project-2-title': 'A-Level Study Tools',
-            'project-2-status': 'In Progress',
-            'project-2-desc': 'Interactive calculators and visualizers for Math/Physics formulas.',
-            'project-3-title': 'Local Business Redesign',
-            'project-3-status': 'Coming Soon',
-            'project-3-desc': 'Modern website redesign for a local cafe (pre-launch project).',
-            
-            // Skills
-            'skills-title': 'Skills & Stack',
-            'skills-frontend': 'Front-End',
-            'skills-tools': 'Tools',
-            'skills-learning': 'Learning',
-            
-            // About
-            'about-title': 'From A-Levels to Code',
-            'about-text': 'Currently balancing betweeen my college and while building a career in web development. It isn\'t just about college— it\'s about launching a professional journey.',
-            'about-1-title':'Launch Mode',
-            'about-1-desc':'Website goes live with my 18th birthday.',
-            'about-2-title':'Fast Learner',
-            'about-2-desc':'From HTML to projects in 3 months.',
-            'about-3-title':'Available Now',
-            'about-3-desc':'Accepting freelance projects Globally.',
-            
-            // Contact
-            'contact-title': 'Ready to Build Something?',
-            'contact-text': 'Let\'s create your website. I\'m available for projects starting from <strong>now</strong>.',
-            'contact-rn':'now',
-            'contact-telegram': "I'm here on Telegram",
-            
-            // Footer
-            'footer-text': 'Built with ❤️ by Mokho, my nickname.',
-            'footer-copyright': '&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All rights reserved.',
-            'footer-source': 'Website Source Code'
-        },
-        
         ar: {
             // Navigation
             'nav-name':'محمد مختار',
-            'nav-projects': 'المشاريع',
+            'nav-services': 'الخدمات',
             'nav-skills': 'المهارات',
             'nav-about': 'عني',
             'nav-contact': 'وظفني',
             'nav-language': 'العربية',
             
             // Hero Section
-            'hero-title': 'بتحول من <span class="highlight">صفر</span> إلى <span class="highlight">خارق</span> من خلال البرمجة.',
-            'hero-subtitle': 'مطور واجهات أمامية · طالب A-Levels · أبني الويب بإيد واحدة.',
-            'hero-button-projects': 'شوف أعمالي',
-            'hero-button-github': 'جيتهاب',
+            'hero-title': 'من <span class="highlight">صفر</span> إلى <span class="highlight">بطل</span> — ابتداءً من $5/ساعة.',
+            'hero-subtitle': 'مطور واجهات أمامية · مهندس صوت · مساعد افتراضي · مترجم إنجليزي/عربي',
+            'hero-button-services': 'عرض الخدمات',
+            'hero-button-github': 'GitHub',
             
-            // Projects
-            'projects-title': 'المشاريع',
-            'project-1-title': 'موقعي الجديد',
-            'project-1-status': 'مباشر',
-            'project-1-desc': 'حياتي الجديدة بتبتدي مع عيد ميلادي ال١٨. الموقع مجاني باستخدام دومين is-a.dev. ده غير كمان ان الموقع ده مفتوح المصدر. HTML/CSS/JS خالص.',
-            'project-2-status': 'تحت الإنشاء',
-            'project-2-title': 'أدوات دراسة A-Levels',
-            'project-2-desc': 'آلات حاسبة تفاعلية ومرئيات لصيغ الرياضيات والفيزياء.',
-            'project-3-title': 'إعادة تصميم أعمال محلية',
-            'project-3-status': 'قريبا',
-            'project-3-desc': 'إعادة تصميم حديث لموقع مقهى محلي (مشروع ما قبل الإطلاق).',
+            // Services
+            'services-title': 'كيف يمكنني مساعدتك؟',
+            'service-1-title': 'مطور واجهات أمامية',
+            'service-1-status': 'مباشر',
+            'service-1-desc': 'أبني مواقع متجاوبة وسهلة الوصول باستخدام HTML وCSS وJavaScript الحديثة.',
+            'service-2-title': 'تحرير بودكاست',
+            'service-2-status': 'مباشر',
+            'service-2-desc': 'أحرّر وأنتج البودكاست بخبرة تقارب سنتين في هندسة الصوت.',
+            'service-3-title': 'خدمات الترجمة',
+            'service-3-status': 'مباشر',
+            'service-3-desc': 'أترجم بين الإنجليزية والعربية.',
+            'service-4-title': 'مساعد افتراضي',
+            'service-4-status': 'مباشر',
+            'service-4-desc': 'أقدّم مساعدة افتراضية موثوقة للمهام اليومية والتنسيق، مع خبرة في Notion وZoom وحزم الأوفيس.',
+            'service-5-title': 'مونتاج',
+            'service-5-status': 'قيد التنفيذ',
+            'service-5-desc': 'مونتاج وتحرير فيديو حديث باستخدام DaVinci Resolve.',
+            'service-6-title': 'محرر صور/صور مصغّرة',
+            'service-6-status': 'قيد التنفيذ',
+            'service-6-desc': 'أصمم صورًا مصغّرة ومرئيات جذابة للفيديو ومحتوى السوشيال ميديا باستخدام GIMP وInkscape.',
+            'service-7-title': 'تصميم UI/UX',
+            'service-7-status': 'قيد التنفيذ',
+            'service-7-desc': 'أصمم واجهات وتجارب استخدام نظيفة وبديهية باستخدام Figma وPenpot.',
             
             // Skills
             'skills-title': 'المهارات والتقنيات',
@@ -99,23 +63,33 @@ document.addEventListener('DOMContentLoaded', function() {
             'skills-learning': 'قيد التعلم',
 
             // About
-            'about-title': 'من A-Levels إلى البرمجة',
-            'about-text': 'دلوقتي بحاول اوفق بين الجامعة وبين اني ابني مسيرة مهنية في تطوير الويب. الموضوع مش بس عن الجامعة— الموضوع عن اني أبدأ مشوار مهني.',
-            'about-1-title':'وضع الإطلاق',
-            'about-1-desc':'الموقع هيبقي متوفر لما أكمل ال١٨ سنة.',
-            'about-2-title':'متعلم سريع',
-            'about-2-desc':'من HTML لمشاريع كبيرة في 3 شهور',
-            'about-3-title':'متوفر الأن',
-            'about-3-desc':'بقبل الأعمال الحرة عالميًا.',
+            'about-title': 'من التطوير إلى التصميم',
+            'about-text': 'أجمع بين تطوير الويب وتصميم UI/UX لصنع تجارب رقمية نظيفة وجذابة.',
+            'about-1-title':'إنجاز سريع',
+            'about-1-desc':'تسليم خلال 48 ساعة.',
+            'about-2-title':'اهتمام بالتفاصيل',
+            'about-2-desc':'تسليم دقيق مع اهتمام كبير بالتفاصيل.',
+            'about-3-title':'متاح الآن',
+            'about-3-desc':'أقبل الأعمال <strong>حول العالم</strong>.',
 
             // Contact
-            'contact-title': 'مستعد لبناء شيء ما؟',
-            'contact-text': 'يلا نعمل موقعك الالكتروني. أنا موجود لعمل الموقع إبنداءًا من <strong>الأن</strong>.',
-            'contact-telegram':'أنا هنا على تيليجرام',
+            'contact-title': 'هل تحتاج إلى خدمة؟',
+            'contact-text': 'دعنا نبني ما تحتاجه. أنا متاح للبدء <strong data-i18n="contact-rn">الآن</strong>.',
+            'contact-rn':'الآن',
+            'contact-hire':'وظفني',
+
+            // Hire Modal
+            'hire-modal-title': 'طرق التوظيف',
+            'hire-upwork': 'وظفني على Upwork',
+            'hire-freelancer': 'وظفني على Freelancer.com',
+            'hire-guru': 'وظفني على Guru.com',
+            'hire-hubstaff': 'وظفني على Hubstaff Talent',
+            'hire-linkedin': 'وظفني على LinkedIn',
+            'hire-telegram': 'وظفني على تيليجرام',
             
             // Footer
-            'footer-text': 'بُني بكل ❤️ من محمد.',
-            'footer-copyright': '&copy; <span id="current-year">٢٠٢٦</span> محمد مختار. جميع الحقوق محفوظة.',
+            'footer-text': 'بُني بواسطة موخو (لقبي).',
+            'footer-copyright': '&copy; <span id="current-year">2026</span> محمد مختار. جميع الحقوق محفوظة.',
             'footer-source': 'مصدر الموقع'
         }
     };
@@ -214,25 +188,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Apply translations to page
     function applyTranslations(lang) {
-        const langData = translations[lang];
-        
-        // Update all cached translatable elements
-        translatableElements.forEach(element => {
-            const key = element.dataset.i18n;
-            if (langData[key]) {
-                if (langData[key].includes('<')) {
-                    element.innerHTML = langData[key];
-                } else {
-                    element.textContent = langData[key];
+        // Query current translatable elements each time (innerHTML updates can replace nodes)
+        const elements = document.querySelectorAll('[data-i18n]');
+
+        // English: restore original HTML from the page itself
+        if (lang === 'en') {
+            elements.forEach(element => {
+                if (element.dataset.i18nEn != null) {
+                    element.innerHTML = element.dataset.i18nEn;
                 }
+            });
+            return;
+        }
+
+        const langData = translations[lang] || {};
+        elements.forEach(element => {
+            const key = element.dataset.i18n;
+            const value = langData[key];
+            if (!value) return;
+            if (value.includes('<')) {
+                element.innerHTML = value;
+            } else {
+                element.textContent = value;
             }
         });
 
         // Update language button text (prefer inner span to preserve button markup)
-        if (langText) {
-            langText.textContent = langData['nav-language'];
-        } else if (langBtn) {
-            langBtn.textContent = langData['nav-language'];
+        const langLabel = langData['nav-language'];
+        if (langLabel) {
+            if (langText) {
+                langText.textContent = langLabel;
+            } else if (langBtn) {
+                langBtn.textContent = langLabel;
+            }
         }
     }
     
@@ -291,7 +279,7 @@ rtlStyles.textContent = `
         text-align: right;
     }
     
-    html[dir="rtl"] .project-card {
+    html[dir="rtl"] .service-card {
         text-align: right;
     }
     
@@ -335,4 +323,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Optionally close when a nav link is clicked (mobile UX)
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+});
+
+// Hire modal
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('hire-modal');
+    const openers = [
+        document.getElementById('hire-me-trigger'),
+        document.getElementById('hire-me-trigger-contact')
+    ].filter(Boolean);
+
+    const serviceCards = Array.from(document.querySelectorAll('#services .service-card'));
+
+    if (!modal || (openers.length === 0 && serviceCards.length === 0)) return;
+
+    function openModal(e) {
+        if (e) e.preventDefault();
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+    }
+
+    function closeModal() {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+    }
+
+    openers.forEach(el => el.addEventListener('click', openModal));
+
+    serviceCards.forEach(card => {
+        card.classList.add('is-clickable');
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.addEventListener('click', openModal);
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal();
+            }
+        });
+    });
+
+    modal.querySelectorAll('[data-modal-close]').forEach(el => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+            closeModal();
+        }
+    });
 });
