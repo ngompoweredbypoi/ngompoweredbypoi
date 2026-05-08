@@ -149,6 +149,75 @@ h3 { font-size: 1.5rem; }
     font-family: 'JetBrains Mono', monospace;
 }
 
+.brand-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand-sep {
+    color: var(--text-light);
+    user-select: none;
+    font-weight: 800;
+}
+
+.donate-link {
+    color: var(--secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.donate-link:hover {
+    color: var(--primary);
+}
+
+.donate-link:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.donate-link i {
+    font-size: 1.25rem;
+    color: var(--primary);
+    filter:
+        drop-shadow(0 0 8px currentColor)
+        drop-shadow(0 0 14px currentColor)
+        drop-shadow(0 0 22px currentColor)
+        hue-rotate(0deg);
+    animation: heartColorShift 2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .donate-link i {
+        animation: none;
+        color: var(--primary);
+        filter:
+            drop-shadow(0 0 8px currentColor)
+            drop-shadow(0 0 14px currentColor)
+            drop-shadow(0 0 22px currentColor);
+    }
+}
+
+@keyframes heartColorShift {
+    0% {
+        filter:
+            drop-shadow(0 0 8px currentColor)
+            drop-shadow(0 0 14px currentColor)
+            drop-shadow(0 0 22px currentColor)
+            hue-rotate(0deg);
+    }
+    100% {
+        filter:
+            drop-shadow(0 0 8px currentColor)
+            drop-shadow(0 0 14px currentColor)
+            drop-shadow(0 0 22px currentColor)
+            hue-rotate(360deg);
+    }
+}
+
 .dot {
     color: var(--primary);
 }
@@ -406,6 +475,37 @@ section {
     text-decoration: underline;
 }
 
+/* ===== DONATION ===== */
+.donation .container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 3rem;
+}
+
+.donation-title {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-align: start;
+}
+
+.donation-text {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 60ch;
+    text-align: start;
+}
+
+.donation-heart {
+    justify-self: end;
+    padding: 0.75rem;
+}
+
+.donation-heart i {
+    font-size: 7rem;
+}
+
 /* ===== SKILLS ===== */
 .skills-grid {
     display: grid;
@@ -557,7 +657,7 @@ footer {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
 
@@ -677,6 +777,27 @@ footer {
     
     .services-grid {
         grid-template-columns: 1fr;
+    }
+
+    .donation .container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .donation-title,
+    .donation-text {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .donation-heart {
+        justify-self: center;
+    }
+
+    .donation-heart i {
+        font-size: 5.75rem;
     }
 
     /* Reduce hero spacing and image on phones */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammed Mokhtar | Front-End Developer</title>
+    <title>Muhammed Mokhtar | Portfolio</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,7 +15,13 @@
 <nav class="navbar">
     <div class="container">
         <div class="nav-brand">
-            <a href="#" class="logo" data-i18n="nav-name">Muhammed Mokhtar</a>
+            <div class="brand-row">
+                <a href="#" class="logo" data-i18n="nav-name">Muhammed Mokhtar</a>
+                <span class="brand-sep" aria-hidden="true">|</span>
+                <a class="donate-link" href="https://patreon.com/ngompoweredbypoi?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" rel="noopener noreferrer" aria-label="Donate on Patreon" title="Donate on Patreon">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                </a>
+            </div>
         </div>
         <div class="nav-right">
             <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
@@ -43,7 +49,7 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1 class="hero-tagline" data-i18n="hero-title">From <span class="highlight">zero</span> to <span class="highlight">hero</span> — starting at $5/hr.</h1>
+            <h1 class="hero-tagline" data-i18n="hero-title">From <span class="highlight">Zero</span> to <span class="highlight">Hero</span> — Starting at $5/hr.</h1>
             <p class="hero-subtitle" data-i18n="hero-subtitle">Front-End Developer · Audio Engineer · Virtual Assistant · English/Arabic Translator</p>
             <div class="hero-buttons">
                 <a href="#services" class="btn-primary" id="services-trigger" data-i18n="hero-button-services">View Services</a>
@@ -197,6 +203,19 @@
     </div>
 </section>
 
+<!-- Donation Section -->
+<section id="donation" class="donation">
+    <div class="container">
+        <div class="donation-copy">
+            <h2 class="donation-title" data-i18n="donation-title">Support me on Patreon</h2>
+            <p class="donation-text" data-i18n="donation-text">If you appreciate my work and want to support me, a little Donation won't hurt. Click on the Glowing Heart to consider donating to me</p>
+        </div>
+        <a class="donate-link donation-heart" href="https://patreon.com/ngompoweredbypoi?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank" rel="noopener noreferrer" aria-label="Support me on Patreon" title="Support me on Patreon">
+            <i class="fas fa-heart" aria-hidden="true"></i>
+        </a>
+    </div>
+</section>
+
 <!-- About Section -->
 <section id="about" class="about">
     <div class="container">
@@ -275,6 +294,10 @@
                 <a class="modal__btn" href="https://www.linkedin.com/in/ngompoweredbypoi" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-linkedin" aria-hidden="true"></i>
                     <span data-i18n="hire-linkedin">Hire me on LinkedIn</span>
+                </a>
+                <a class="modal__btn" href="https://mostaql.com/u/ngompoipowered" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-briefcase" aria-hidden="true"></i>
+                    <span data-i18n="hire-mostaql">Hire me on Mostaql.com</span>
                 </a>
                 <a class="modal__btn" href="https://t.me/ngompoweredbypoi" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-telegram" aria-hidden="true"></i>
