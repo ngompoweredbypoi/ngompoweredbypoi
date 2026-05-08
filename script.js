@@ -1,9 +1,14 @@
 // Language Toggle with Translations
 document.addEventListener('DOMContentLoaded', function() {
     const langBtn = document.getElementById('language-toggle');
+    const themeBtn = document.getElementById('theme-toggle');
     // Cache frequently-used elements
     const langText = document.querySelector('.lang-text');
+    const themeLabel = document.querySelector('.theme-label');
+    const themeIcon = document.querySelector('.theme-icon');
     const LANG_KEY = 'portfolio-lang';
+    const THEME_KEY = 'portfolio-theme';
+    const themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     if (!langBtn) return;
 
@@ -17,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Translation dictionary (Arabic only; English comes from the HTML itself)
     const translations = {
+        en: {
+            'theme-dark': 'Dark',
+            'theme-light': 'Light',
+            'theme-toggle-to-dark': 'Switch to dark mode',
+            'theme-toggle-to-light': 'Switch to light mode'
+        },
         ar: {
             // Navigation
             'nav-name':'محمد مختار',
@@ -25,6 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
             'nav-about': 'عني',
             'nav-contact': 'شغّلني',
             'nav-language': 'العربية',
+            'theme-dark': 'داكن',
+            'theme-light': 'فاتح',
+            'theme-toggle-to-dark': 'التبديل إلى الوضع الداكن',
+            'theme-toggle-to-light': 'التبديل إلى الوضع الفاتح',
             
             // Hero Section
             'hero-title': 'من <span class="highlight">صفر</span> لـ <span class="highlight">بطل</span> —بـ$5 في الساعة.',
@@ -57,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'service-7-desc': 'بصمّم واجهات وتجربة استخدام بسيطة وواضحة باستخدام Figma وPenpot.',
 
             // Donation
-            'donation-title': 'ادعمني على Patreon',
-            'donation-text': 'لو شغلي عاجبك وعايز تدعمني، تبرع بسيط مش هيضر. دوس على القلب المنوّر عشان تفكّر تتبرعلي',
+            'donation-title': 'ادعمني على Patreon.',
+            'donation-text': 'لو شغلي عاجبك وعايز تدعمني، تبرع بسيط مش هيضر. دوس على القلب المنوّر عشان تفكّر تتبرعلي. الف شكر مقدما!',
             
             // Skills
             'skills-title': 'المهارات والتقنيات',
@@ -68,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // About
             'about-title': 'من التطوير للتصميم',
-            'about-text': 'بجمع بين تطوير الويب وتصميم UI/UX عشان أطلع تجربة شكلها حلو وسهلة الاستخدام.',
+            'about-text': 'بجمع بين تطوير الويب، تصميم UI/UX، والمونتاج عشان أطلع تجربة شكلها حلو وسهلة الاستخدام.',
             'about-1-title':'تسليم سريع',
             'about-1-desc':'تسليم في خلال 48 ساعة.',
             'about-2-title':'عين للتفاصيل',
@@ -93,9 +108,41 @@ document.addEventListener('DOMContentLoaded', function() {
             'hire-mostaql': 'شغّلني على مستقل',
             
             // Footer
-            'footer-text': 'متعمل بواسطة موخو (لقبي).',
+            'footer-text': 'تم عمله بواسطة موخو (لقبي).',
             'footer-copyright': '&copy; <span id="current-year">2026</span> محمد مختار. كل الحقوق محفوظة.',
-            'footer-source': 'مصدر الموقع'
+            'footer-source': 'مصدر الموقع',
+            
+            // Tech Tags
+            'tag-audacity': 'Audacity',
+            'tag-audio-engineering': 'هندسة الصوت',
+            'tag-communication': 'تواصل',
+            'tag-css': 'CSS',
+            'tag-davinci-resolve': 'DaVinci Resolve',
+            'tag-figma': 'Figma',
+            'tag-flac-files': 'ملفات FLAC',
+            'tag-gimp': 'GIMP',
+            'tag-grammar': 'قواعد اللغة',
+            'tag-html': 'HTML',
+            'tag-inkscape': 'Inkscape',
+            'tag-javascript': 'جافاسكريبت',
+            'tag-kdenlive': 'Kdenlive',
+            'tag-libreoffice-onlyoffice': 'LibreOffice / OnlyOffice',
+            'tag-listening': 'استماع',
+            'tag-montage': 'مونتاج',
+            'tag-notion': 'Notion',
+            'tag-penpot': 'Penpot',
+            'tag-photo-thumbnail-editing': 'تعديل الصور/المصغرات',
+            'tag-problem-solving': 'حل المشكلات',
+            'tag-speaking': 'تحدث',
+            'tag-time-management': 'تنظيم الوقت',
+            'tag-translation': 'ترجمة',
+            'tag-ui-ux-design': 'تصميم UI / UX',
+            'tag-video-editing': 'تحرير الفيديو',
+            'tag-writing': 'كتابة'
+,
+            'cookie-notice': 'نحن نستخدم ملفات تعريف الارتباط لمعرفة موقعك وتوفير تجربة أفضل. هل توافق؟',
+            'cookie-accept': 'موافق',
+            'cookie-reject': 'أرفض'
         }
     };
     
@@ -185,10 +232,61 @@ document.addEventListener('DOMContentLoaded', function() {
         if (ipLang === 'ar' || ipLang === 'en') return ipLang;
 
         // If GeoIP fails (blocked, offline, adblock, etc.), default to English.
-        // Persist the default so subsequent loads don't re-request GeoIP.
-        setCookie(LANG_KEY, 'en');
-        localStorage.setItem(LANG_KEY, 'en');
         return 'en';
+    }
+
+    function getSavedTheme() {
+        const cookieTheme = getCookie(THEME_KEY);
+        if (cookieTheme === 'dark' || cookieTheme === 'light') return cookieTheme;
+
+        const savedTheme = localStorage.getItem(THEME_KEY);
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+            setCookie(THEME_KEY, savedTheme);
+            return savedTheme;
+        }
+        return null;
+    }
+
+    function getSystemTheme() {
+        return themeQuery.matches ? 'dark' : 'light';
+    }
+
+    function getPreferredTheme() {
+        return getSavedTheme() || getSystemTheme();
+    }
+
+    function updateThemeButton(theme) {
+        if (!themeBtn) return;
+        const lang = document.documentElement.lang === 'ar' ? 'ar' : 'en';
+        const langData = translations[lang] || translations.en;
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        const labelText = langData[`theme-${nextTheme}`] || nextTheme;
+        const ariaText = langData[`theme-toggle-to-${nextTheme}`] || labelText;
+
+        if (themeLabel) {
+            themeLabel.textContent = labelText;
+        }
+
+        themeBtn.setAttribute('aria-label', ariaText);
+        themeBtn.setAttribute('title', ariaText);
+    }
+
+    function applyTheme(theme, persist = false) {
+        const resolvedTheme = theme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = resolvedTheme;
+        document.documentElement.style.colorScheme = resolvedTheme;
+        updateThemeButton(resolvedTheme);
+
+        if (persist) {
+            localStorage.setItem(THEME_KEY, resolvedTheme);
+            setCookie(THEME_KEY, resolvedTheme);
+        }
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.dataset.theme || getPreferredTheme();
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(nextTheme, true);
     }
     
     // Apply translations to page
@@ -203,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     element.innerHTML = element.dataset.i18nEn;
                 }
             });
+            updateThemeButton(document.documentElement.dataset.theme || getPreferredTheme());
             return;
         }
 
@@ -227,10 +326,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 langBtn.textContent = langLabel;
             }
         }
+
+        updateThemeButton(document.documentElement.dataset.theme || getPreferredTheme());
     }
     
     // Set language function
-    function setLanguage(isArabic) {
+    function setLanguage(isArabic, save = true) {
         const lang = isArabic ? 'ar' : 'en';
         
         // Update HTML attributes
@@ -241,8 +342,10 @@ document.addEventListener('DOMContentLoaded', function() {
         applyTranslations(lang);
         
         // Save preference
-        localStorage.setItem(LANG_KEY, lang);
-        setCookie(LANG_KEY, lang);
+        if (save) {
+            localStorage.setItem(LANG_KEY, lang);
+            setCookie(LANG_KEY, lang);
+        }
         
         console.log(`🌍 Language set to: ${lang.toUpperCase()}`);
     }
@@ -254,12 +357,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Initialize
-    detectPreferredLangCode().then(langCode => {
-        setLanguage(langCode === 'ar');
-    });
+    const cookieBanner = document.getElementById('cookie-banner');
+    const btnAccept = document.getElementById('cookie-accept');
+    const btnReject = document.getElementById('cookie-reject');
+
+    function checkCookieConsent() {
+        const consent = getCookie('cookie-consent');
+        if (!consent) {
+            if (cookieBanner) cookieBanner.classList.add('show');
+            // If they haven't explicitly interacted, default to browser language but don't block site
+            const saved = getSavedLangCode();
+            if (saved) {
+                setLanguage(saved === 'ar', false);
+            } else {
+                setLanguage(false, false); // Default to English without saving
+            }
+        } else if (consent === 'accepted') {
+            detectPreferredLangCode().then(langCode => setLanguage(langCode === 'ar', false));
+        } else {
+            // Rejected
+            const saved = getSavedLangCode();
+            setLanguage(saved ? saved === 'ar' : false, false);
+        }
+    }
+
+    if (btnAccept && btnReject) {
+        btnAccept.addEventListener('click', () => {
+            setCookie('cookie-consent', 'accepted', 365);
+            cookieBanner.classList.remove('show');
+            detectPreferredLangCode().then(langCode => setLanguage(langCode === 'ar', false));
+        });
+        
+        btnReject.addEventListener('click', () => {
+            setCookie('cookie-consent', 'rejected', 365);
+            cookieBanner.classList.remove('show');
+        });
+    }
+
+    checkCookieConsent();
     
     // Add click event
     langBtn.addEventListener('click', toggleLanguage);
+
+    if (themeBtn) {
+        applyTheme(getPreferredTheme());
+        themeBtn.addEventListener('click', toggleTheme);
+
+        if (!getSavedTheme()) {
+            themeQuery.addEventListener('change', function() {
+                if (!getSavedTheme()) {
+                    applyTheme(getSystemTheme());
+                }
+            });
+        }
+    }
 });
 
 // Add RTL CSS adjustments

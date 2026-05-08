@@ -6,9 +6,9 @@
 }
 
 :root {
-    --primary: #2563eb;       /* Blue */
-    --primary-dark: #1d4ed8;
-    --secondary: #7c3aed;     /* Purple */
+    --primary: #0055ff;       /* Pure Vibrant Blue */
+    --primary-dark: #003cc7;
+    --secondary: #0044cc;
     --text: #1f2937;          /* Gray-900 */
     --text-light: #6b7280;    /* Gray-500 */
     --bg: #ffffff;
@@ -19,13 +19,59 @@
     --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
     --radius: 8px;
     --radius-lg: 12px;
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-menu-bg: rgba(255, 255, 255, 0.98);
+    --hero-bg-light: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    --hero-bg-dark: linear-gradient(135deg, #000000 0%, #0f172a 100%);
+    --button-secondary-bg: #ffffff;
+    --hero-icon-bg: linear-gradient(135deg, var(--primary), var(--secondary));
+    --chip-bg: #dbeafe;
+    --chip-text: #0f4aa6;
+    --status-bg: #dcfce7;
+    --status-text: #166534;
+    --contact-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --contact-text: #ffffff;
+    --contact-subtext: #d1d5db;
+}
+
+html {
+    color-scheme: light;
+}
+
+html[data-theme="dark"] {
+    --primary: #0066ff;       /* Pure Bright Blue */
+    --primary-dark: #004ecc;
+    --secondary: #0055ff;
+    --text: #f5f5f5;
+    --text-light: #b3b3b3;
+    --bg: #000000;
+    --bg-light: #000000;
+    --bg-card: #000000;
+    --border: #141414;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.75);
+    --nav-bg: rgba(0, 0, 0, 0.98);
+    --nav-menu-bg: rgba(0, 0, 0, 0.99);
+    --hero-bg-light: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    --hero-bg-dark: radial-gradient(circle at top left, rgba(0, 102, 255, 0.22), transparent 32%), linear-gradient(180deg, #000000 0%, #000000 100%);
+    --button-secondary-bg: #000000;
+    --hero-icon-bg: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.42), transparent 45%), linear-gradient(135deg, #000000 0%, #0b0b0b 100%);
+    --chip-bg: rgba(59, 130, 246, 0.14);
+    --chip-text: #bfdbfe;
+    --status-bg: rgba(59, 130, 246, 0.14);
+    --status-text: #93c5fd;
+    --contact-bg: linear-gradient(135deg, #000000 0%, #000000 100%);
+    --contact-text: #ffffff;
+    --contact-subtext: #d1d5db;
+    color-scheme: dark;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: var(--text);
-    background: var(--bg);
+    background-color: var(--bg);
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .container {
@@ -67,22 +113,23 @@ h3 { font-size: 1.5rem; }
     position: fixed;
     width: 100%;
     top: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
     z-index: 2000;
     border-bottom: 1px solid var(--border);
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .navbar .container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* Changed from flex-start to properly align hamburger and name */
 }
 
 .nav-right {
     display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
+    align-items: center; /* Changed from flex-start */
+    gap: 1rem;
 }
 
 /* Hidden on larger screens; shown in the mobile media query */
@@ -99,7 +146,7 @@ h3 { font-size: 1.5rem; }
 
 /* Keep the hamburger aligned with the logo line */
 .nav-toggle {
-    margin-top: 0.15rem;
+    /* Removed margin-top hack since the container is properly center-aligned now */
 }
 
 /* STEP 1: Make ALL nav items (links AND button) consistent */
@@ -122,6 +169,67 @@ h3 { font-size: 1.5rem; }
     align-items: center;
 }
 
+.nav-item.theme-btn {
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: var(--text-light);
+    transition: color 0.2s ease;
+}
+
+@media (min-width: 951px) {
+    .nav-item.theme-btn {
+        margin-top: 2px;
+        margin-right: 0.5rem;
+    }
+}
+
+.theme-icon {
+    font-size: 1.35rem; /* Larger icon to match hamburger */
+    line-height: 1;
+    display: inline-block;
+    position: relative;
+    width: 1.35rem;
+    height: 1.35rem;
+    transform: translateY(0);
+}
+
+.theme-icon__moon,
+.theme-icon__sun {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    width: 1em;
+    height: 1em;
+    color: inherit;
+    transition: opacity 0.25s ease, color 0.2s ease;
+}
+
+.theme-icon__moon {
+    width: calc(1em - 1px);
+    height: calc(1em - 1px);
+}
+
+.theme-icon__sun {
+    opacity: 0;
+    width: calc(1em + 1px);
+    height: calc(1em + 1px);
+}
+
+html[data-theme="dark"] .theme-icon__moon {
+    opacity: 0;
+}
+
+html[data-theme="dark"] .theme-icon__sun {
+    opacity: 1;
+}
+
 /* Hover effect - SAME for both */
 .nav-item:hover {
     color: var(--primary); /* Your link hover color */
@@ -130,15 +238,29 @@ h3 { font-size: 1.5rem; }
 
 /* If your existing links have specific hover, match it */
 .nav-item.lang-btn:hover {
-    /* Make it behave EXACTLY like other links */
+    /* Keep the language switch calm on hover */
     background: transparent !important;
+    color: var(--text-light) !important;
     transform: translateY(0) !important;
+    box-shadow: none !important;
+    filter: none !important;
+    text-shadow: none !important;
 }
 
 /* Optional: If you want visual separation */
 .nav-item.lang-btn {
     margin-right: 0rem;
     border-right: 0px solid rgba(0,0,0,0);
+}
+
+.nav-item.theme-btn:hover {
+    color: var(--primary) !important;
+    transform: none !important;
+}
+
+.nav-item.theme-btn:hover .theme-icon__moon,
+.nav-item.theme-btn:hover .theme-icon__sun {
+    color: var(--primary);
 }
 
 .logo {
@@ -253,9 +375,39 @@ h3 { font-size: 1.5rem; }
 
 /* ===== HERO ===== */
 .hero {
+    position: relative;
     padding: 10rem 0 6rem;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    background-color: var(--bg);
     margin-top: 80px;
+    overflow: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.hero::before,
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.hero::before {
+    background: var(--hero-bg-light);
+    opacity: 1;
+}
+
+.hero::after {
+    background: var(--hero-bg-dark);
+    opacity: 0;
+}
+
+html[data-theme="dark"] .hero::before {
+    opacity: 0;
+}
+
+html[data-theme="dark"] .hero::after {
+    opacity: 1;
 }
 
 .hero .container {
@@ -263,6 +415,8 @@ h3 { font-size: 1.5rem; }
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-tagline {
@@ -291,7 +445,7 @@ h3 { font-size: 1.5rem; }
     border-radius: var(--radius);
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
 }
 
 .btn-primary {
@@ -307,18 +461,17 @@ h3 { font-size: 1.5rem; }
 }
 
 .btn-secondary {
-    background: white;
+    background-color: var(--button-secondary-bg);
     color: var(--text);
     border: 2px solid var(--border);
 }
 
 .btn-secondary:hover {
-    border-color: var(--primary);
     transform: translateY(-2px);
 }
 
 .countdown {
-    background: white;
+    background: var(--button-secondary-bg);
     padding: 1rem 1.5rem;
     border-radius: var(--radius);
     display: inline-block;
@@ -346,7 +499,7 @@ h3 { font-size: 1.5rem; }
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--hero-icon-bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -406,7 +559,7 @@ section {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.3s, box-shadow 0.3s;
 }
 
 .service-card.is-clickable {
@@ -431,8 +584,8 @@ section {
 }
 
 .service-status {
-    background: #dcfce7;
-    color: #166534;
+    background: var(--status-bg);
+    color: var(--status-text);
     padding: 0.3rem 0.8rem;
     border-radius: 25px;
     font-size: 0.875rem;
@@ -454,8 +607,8 @@ section {
 }
 
 .tech-tag {
-    background: #e0f2fe;
-    color: #075985;
+    background: var(--chip-bg);
+    color: var(--chip-text);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.875rem;
@@ -518,6 +671,7 @@ section {
     padding: 2rem;
     border-radius: var(--radius);
     border: 1px solid var(--border);
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .skill-category h3 {
@@ -558,7 +712,7 @@ section {
 .point i {
     font-size: 1.5rem;
     color: var(--primary);
-    background: #e0f2fe;
+    background: var(--chip-bg);
     padding: 1rem;
     border-radius: 50%;
 }
@@ -570,17 +724,17 @@ section {
 /* ===== CONTACT ===== */
 .contact {
     text-align: center;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
-    color: white;
+    background: var(--contact-bg);
+    color: var(--contact-text);
 }
 
 .contact h2 {
-    color: white;
+    color: var(--contact-text);
     margin-bottom: 1rem;
 }
 
 .contact p {
-    color: #d1d5db;
+    color: var(--contact-subtext);
     margin-bottom: 2rem;
     font-size: 1.125rem;
 }
@@ -598,7 +752,7 @@ section {
 }
 
 .social-links a {
-    color: white;
+    color: var(--contact-text);
     font-size: 1.5rem;
     transition: transform 0.2s;
 }
@@ -657,7 +811,7 @@ footer {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 850px) {
+@media (max-width: 950px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
 
@@ -682,7 +836,7 @@ footer {
         gap: 0.75rem;
         align-items: center;
         width: 100%;
-        background: rgba(255,255,255,0.98);
+        background: var(--nav-menu-bg);
         /* start collapsed */
         max-height: 0;
         /* small collapsed padding to avoid sudden layout jumps */
@@ -735,6 +889,10 @@ footer {
         align-items: center;
         justify-content: center;
         z-index: 2001;
+    }
+
+    .nav-item.theme-btn {
+        margin-top: 0;
     }
 
     /* Use absolutely positioned bars so they rotate around center smoothly */
@@ -859,7 +1017,7 @@ footer {
 
     opacity: 0;
     transform: translateY(10px) scale(0.98);
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .modal[aria-hidden="false"] .modal__panel {
@@ -953,4 +1111,89 @@ html {
     html {
         scroll-behavior: auto;
     }
+}
+/* Transitions for smooth light/dark mode */
+.navbar, .footer, .hero-content, .about-content, .hero, .nav-menu, .services, .skills, .about, .contact {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+.service-card {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.3s, box-shadow 0.3s;
+}
+
+/* Base Nav Item Styles - Make button match a tags */
+button.nav-item {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-light); /* Changed back to text-light to match other nav items */
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s; /* Add same transition as other nav items */
+}
+
+button.nav-item:hover {
+    color: var(--primary);
+}
+
+/* Cookie Banner */
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    padding: 1rem;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+#cookie-banner.show {
+    transform: translateY(0);
+}
+
+.cookie-text {
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.cookie-btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.cookie-accept {
+    background: var(--primary);
+    color: white;
+}
+.cookie-accept:hover {
+    background: var(--primary-dark);
+}
+
+.cookie-reject {
+    background: var(--bg-light);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.cookie-reject:hover {
+    background: var(--border);
 }
