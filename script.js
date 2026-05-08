@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'service-4-desc': 'بقدّم مساعدة افتراضية للمهام اليومية والمتابعة والتنظيم، ومعايا خبرة في Notion وZoom وحزمة أوفيس.',
             'service-5-title': 'مونتاج',
             'service-5-status': 'شغال عليه',
-            'service-5-desc': 'مونتاج وتحرير فيديو حديث باستخدام DaVinci Resolve.',
+            'service-5-desc': 'مونتاج وتحرير فيديو حديث باستخدام DaVinci Resolve و Kdenlive.',
             'service-6-title': 'تصميم صور/ثَمبنيل',
             'service-6-status': 'شغال عليه',
             'service-6-desc': 'بصمّم ثَمبنيلز ومرئيات جذابة للفيديو ومحتوى السوشيال ميديا باستخدام GIMP وInkscape.',
