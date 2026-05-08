@@ -33,6 +33,31 @@
             } catch(e) {}
         })();
     </script>
+    <script>
+        (function() {
+            try {
+                var lang = localStorage.getItem('portfolio-lang');
+                if (!lang) {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var c = cookies[i].trim();
+                        if (c.startsWith('portfolio-lang=')) {
+                            lang = decodeURIComponent(c.substring('portfolio-lang='.length));
+                            break;
+                        }
+                    }
+                }
+
+                if (!lang) {
+                    var browserLang = (navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language) || '';
+                    lang = /^ar(?:-|$)/i.test(browserLang) ? 'ar' : 'en';
+                }
+
+                document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            } catch(e) {}
+        })();
+    </script>
 </head>
 <body>
 <!--Navigation Section-->

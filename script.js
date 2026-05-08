@@ -194,6 +194,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
+    function getSystemLangCode() {
+        const browserLang = (navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language) || '';
+        return /^ar(?:-|$)/i.test(browserLang) ? 'ar' : 'en';
+    }
+
     function isArabicCountry(countryCode) {
         // Arabic-speaking / MENA countries (best-effort, not perfect)
         const arCountries = new Set([
@@ -224,9 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function detectPreferredLangCode() {
-        // Priority: cookie/localStorage > IP-based > default
+        // Priority: cookie/localStorage > browser/system locale > IP-based > default
         const saved = getSavedLangCode();
         if (saved) return saved;
+
+        const systemLang = getSystemLangCode();
+        if (systemLang === 'ar' || systemLang === 'en') return systemLang;
 
         const ipLang = await getIpBasedLangCode();
         if (ipLang === 'ar' || ipLang === 'en') return ipLang;
@@ -365,19 +373,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const consent = getCookie('cookie-consent');
         if (!consent) {
             if (cookieBanner) cookieBanner.classList.add('show');
-            // If they haven't explicitly interacted, default to browser language but don't block site
+            // If they haven't explicitly interacted, use the browser/system language but don't block site.
             const saved = getSavedLangCode();
             if (saved) {
                 setLanguage(saved === 'ar', false);
             } else {
-                setLanguage(false, false); // Default to English without saving
+                setLanguage(getSystemLangCode() === 'ar', false);
             }
         } else if (consent === 'accepted') {
             detectPreferredLangCode().then(langCode => setLanguage(langCode === 'ar', false));
         } else {
             // Rejected
             const saved = getSavedLangCode();
-            setLanguage(saved ? saved === 'ar' : false, false);
+            setLanguage(saved ? saved === 'ar' : getSystemLangCode() === 'ar', false);
         }
     }
 
