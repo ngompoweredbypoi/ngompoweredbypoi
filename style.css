@@ -556,6 +556,7 @@ section {
 .service-card {
     background: var(--bg-card);
     padding: 2rem;
+    min-width: 0;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
@@ -579,8 +580,15 @@ section {
 .service-header {
     display: flex;
     justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
     align-items: start;
     margin-bottom: 1rem;
+}
+
+.service-header h3 {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .service-status {
@@ -654,6 +662,13 @@ section {
     justify-self: end;
     padding: 0.75rem;
     margin-right: 40px;
+}
+
+@media (min-width: 951px) {
+    html[dir="rtl"] .donation-heart {
+        margin-right: 0;
+        margin-left: 40px;
+    }
 }
 
 .donation-heart i {
@@ -831,11 +846,12 @@ footer {
     }
     
     .navbar {
-        position: relative;
+        position: fixed;
+        top: 0;
     }
     
     .hero {
-        margin-top: 0;
+        margin-top: 80px;
     }
     
     .hero .container {
@@ -953,7 +969,7 @@ footer {
     }
     
     .services-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .donation .container {
@@ -971,6 +987,7 @@ footer {
 
     .donation-heart {
         justify-self: center;
+        margin-right: 0;
     }
 
     .donation-heart i {
