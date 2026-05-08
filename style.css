@@ -144,11 +144,6 @@ h3 { font-size: 1.5rem; }
     align-items: flex-start;
 }
 
-/* Keep the hamburger aligned with the logo line */
-.nav-toggle {
-    /* Removed margin-top hack since the container is properly center-aligned now */
-}
-
 /* STEP 1: Make ALL nav items (links AND button) consistent */
 .nav-item {
     /* Same for both <a> and <button> */
@@ -814,6 +809,15 @@ footer {
 @media (max-width: 950px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
+
+    .logo {
+        font-size: 1.25rem;
+        white-space: nowrap;
+    }
+
+    .brand-row {
+        gap: 0. rem;
+    }
 
     /* Make the page feel less wide on mobile */
     .container {
