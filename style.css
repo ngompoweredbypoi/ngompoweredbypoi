@@ -548,6 +548,11 @@ section {
     font-family: 'Almarai', sans-serif; /* Arabic-friendly font */
 }
 
+/* Slightly increase spacing between theme button and nav links in RTL */
+[dir="rtl"] .nav-right {
+    gap: 1.5rem; /* a bit more space than the default 1rem */
+}
+
 .service-card {
     background: var(--bg-card);
     padding: 2rem;
