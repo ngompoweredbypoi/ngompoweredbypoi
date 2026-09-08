@@ -1,394 +1,575 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammed Mokhtar | Portfolio</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammed Mokhtar | Creative Systems</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Apply the saved language before the page paints to avoid direction flicker. -->
     <script>
-        (function() {
-            try {
-                var theme = localStorage.getItem('portfolio-theme');
-                if (!theme) {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var c = cookies[i].trim();
-                        if (c.startsWith('portfolio-theme=')) {
-                            theme = decodeURIComponent(c.substring('portfolio-theme='.length));
-                            break;
-                        }
-                    }
-                }
-                if (!theme) {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                }
-                if (theme === 'dark') {
-                    document.documentElement.dataset.theme = 'dark';
-                    document.documentElement.style.colorScheme = 'dark';
-                }
-            } catch(e) {}
-        })();
+      (function () {
+        try {
+          var l =
+            localStorage.getItem("portfolio-lang") ||
+            ((navigator.language || "").match(/^ar/i) ? "ar" : "en");
+          document.documentElement.lang = l === "ar" ? "ar" : "en";
+          document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+        } catch (e) {}
+      })();
     </script>
-    <script>
-        (function() {
-            try {
-                var lang = localStorage.getItem('portfolio-lang');
-                if (!lang) {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var c = cookies[i].trim();
-                        if (c.startsWith('portfolio-lang=')) {
-                            lang = decodeURIComponent(c.substring('portfolio-lang='.length));
-                            break;
-                        }
-                    }
-                }
-
-                if (!lang) {
-                    var browserLang = (navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language) || '';
-                    lang = /^ar(?:-|$)/i.test(browserLang) ? 'ar' : 'en';
-                }
-
-                document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
-                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            } catch(e) {}
-        })();
-    </script>
-</head>
-<body>
-<!--Navigation Section-->
-<nav class="navbar">
-    <div class="container">
-        <div class="nav-brand">
-            <div class="brand-row">
-                <a href="#" class="logo" data-i18n="nav-name">Muhammed Mokhtar</a>
-                <span class="brand-sep" aria-hidden="true">|</span>
-                <a class="donate-link" href="https://patreon.com/ngompoweredbypoi" target="_blank" rel="noopener noreferrer" aria-label="Support me on Patreon." title="Support me on Patreon.">
-                    <i class="fas fa-heart" aria-hidden="true"></i>
-                </a>
-            </div>
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <!-- Fixed navigation with language, section links, and hire action. -->
+    <nav class="navbar">
+      <div class="container nav-shell">
+        <div class="brand-lockup">
+          <a href="#top" class="logo" data-i18n="nav-name">Muhammed Mokhtar</a
+          ><a
+            class="header-heart"
+            href="https://patreon.com/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Support me on Patreon"
+            title="Support me on Patreon"
+            ><i class="fas fa-heart" aria-hidden="true"></i
+          ></a>
         </div>
         <div class="nav-right">
-            <button id="theme-toggle" class="nav-item theme-btn" type="button" aria-label="Toggle theme" title="Toggle theme">
-                <span class="theme-icon" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="theme-icon__moon" viewBox="0 0 16 16">
-                        <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/>
-                        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.73 1.73 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.73 1.73 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.73 1.73 0 0 0 1.097-1.097zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="theme-icon__sun" viewBox="0 0 16 16">
-                        <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
-                    </svg>
-                </span>
-            </button>
-            <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <!-- Removed theme toggle from here -->
-                <button id="language-toggle" class="nav-item" type="button">
-                    <span class="lang-text" data-i18n="nav-language">English</span>
-                </button>
-                <span class="nav-sep nav-item">|</span>
-                <!-- Your existing links should have 'nav-item' class -->
-                <a href="#services" class="nav-item" id="services-nav-trigger" data-i18n="nav-services">Services</a>
-                <a href="#skills" class="nav-item" data-i18n="nav-skills">Skills</a>
-                <a href="#about" class="nav-item" data-i18n="nav-about">About</a>
-                <a href="#" class="cta-button" id="hire-me-trigger" data-i18n="nav-contact">Hire Me</a>
-            </div>
+          <button
+            id="nav-toggle"
+            class="nav-toggle"
+            type="button"
+            aria-label="Menu"
+            aria-controls="nav-links"
+            aria-expanded="false"
+          >
+            <span class="bar"></span><span class="bar"></span
+            ><span class="bar"></span>
+          </button>
+          <div class="nav-links" id="nav-links">
+            <button id="language-toggle" class="nav-item" type="button">
+              <span class="lang-text" data-i18n="nav-language"
+                >English</span
+              ></button
+            ><a href="#services" class="nav-item" data-i18n="nav-services"
+              >Services</a
+            ><a href="#skills" class="nav-item" data-i18n="nav-skills">Skills</a
+            ><a href="#about" class="nav-item" data-i18n="nav-about">About</a
+            ><a href="#projects" class="nav-item" data-i18n="nav-projects"
+              >Projects</a
+            ><a
+              href="#"
+              class="cta-button"
+              id="hire-me-trigger"
+              data-i18n="nav-contact"
+              >Hire Me</a
+            >
+          </div>
         </div>
-    </div>
-</nav>
-
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-tagline" data-i18n="hero-title">From <span class="highlight">Zero</span> to <span class="highlight">Hero</span> — Starting at $5/hr.</h1>
-            <p class="hero-subtitle" data-i18n="hero-subtitle">Front-End Developer · Audio Engineer · Virtual Assistant · English/Arabic Translator</p>
+      </div>
+    </nav>
+    <main>
+      <!-- Hero: primary positioning statement and animated orbital visual. -->
+      <section class="hero" id="top">
+        <div class="container hero-grid">
+          <div class="hero-content reveal">
+            <div class="eyebrow">
+              <span class="pulse-dot"></span
+              ><span>AVAILABLE WORLDWIDE / 2026</span>
+            </div>
+            <h1 class="hero-tagline" data-i18n="hero-title">
+              From <span class="highlight">Zero</span> to
+              <span class="highlight">Hero</span> — Starting at €20/hr.
+            </h1>
+            <p class="hero-subtitle" data-i18n="hero-subtitle">
+              Front-End Developer · Audio Engineer · UI/UX Designer
+            </p>
             <div class="hero-buttons">
-                <a href="#services" class="btn-primary" id="services-trigger" data-i18n="hero-button-services">View Services</a>
-                <a href="https://github.com/ngompoweredbypoi" target="_blank" class="btn-secondary">
-                    <i class="fab fa-github"></i> <span data-i18n="hero-button-github">GitHub</span>
-                </a>
+              <a
+                href="#services"
+                class="btn-primary"
+                data-i18n="hero-button-services"
+                >View Services <i class="fas fa-arrow-down"></i></a
+              ><a
+                href="https://github.com/ngompoweredbypoi"
+                target="_blank"
+                rel="noopener"
+                class="btn-secondary"
+                ><i class="fab fa-github"></i>
+                <span data-i18n="hero-button-github">GitHub</span></a
+              >
             </div>
+            <div class="hero-meta">
+              <span>01 / 04</span><span class="meta-line"></span
+              ><span>CREATIVE SYSTEMS</span>
+            </div>
+          </div>
+          <div class="hero-image reveal reveal-delay">
+            <div
+              class="orbital-stage"
+              aria-label="Animated creative systems visual"
+            >
+              <div class="orbit orbit-a"></div>
+              <div class="orbit orbit-b"></div>
+              <div class="orbit orbit-c"></div>
+              <img
+                class="hero-portrait"
+                src="profile.png"
+                alt="Muhammed Mokhtar"
+              />
+              <div class="core"><i class="fas fa-code"></i><span>MM</span></div>
+              <span class="float-icon icon-a"
+                ><i class="fas fa-wave-square"></i></span
+              ><span class="float-icon icon-b"
+                ><i class="fas fa-pen-nib"></i></span
+              ><span class="float-icon icon-c"
+                ><i class="fas fa-language"></i
+              ></span>
+            </div>
+          </div>
         </div>
-        <div class="hero-image">
-            <!-- Replace with your photo or cool illustration -->
-            <div class="image-placeholder">
+      </section>
+      <!-- Decorative marquee. Repeated units allow a seamless -50% CSS loop. -->
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>DESIGN / CODE / SOUND / MOTION / MONTAGE /</span>
+          <span>DESIGN / CODE / SOUND / MOTION / MONTAGE /</span>
+          <span>DESIGN / CODE / SOUND / MOTION / MONTAGE /</span>
+          <span>DESIGN / CODE / SOUND / MOTION / MONTAGE /</span>
+        </div>
+      </div>
+      <!-- Services: each card is clickable and opens the hiring options modal. -->
+      <section id="services" class="services">
+        <div class="container">
+          <div class="section-heading">
+            <span class="section-index">[ 01 ]</span>
+            <h2 class="section-title" data-i18n="services-title">
+              How can I help you?
+            </h2>
+            <p>SELECT A MODULE TO START A CONVERSATION</p>
+          </div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="card-number">01</div>
+              <div class="service-header">
+                <h3 data-i18n="service-1-title">Front-End Developer</h3>
+                <span class="service-status" data-i18n="service-1-status"
+                  >Live</span
+                >
+              </div>
+              <p class="service-desc" data-i18n="service-1-desc">
+                I can help you get your own website with your own domain so you
+                get more online clientsusing modern HTML, CSS, and JavaScript.
+              </p>
+              <div class="service-tech">
+                <span class="tech-tag" data-i18n="tag-html">HTML</span
+                ><span class="tech-tag" data-i18n="tag-css">CSS</span
+                ><span class="tech-tag" data-i18n="tag-javascript"
+                  >JavaScript</span
+                >
+              </div>
+              <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            </div>
+            <div class="service-card">
+              <div class="card-number">02</div>
+              <div class="service-header">
+                <h3 data-i18n="service-2-title">Podcast Editing</h3>
+                <span class="service-status" data-i18n="service-2-status"
+                  >Live</span
+                >
+              </div>
+              <p class="service-desc" data-i18n="service-2-desc">
+                I can help your podcast channel grow faster with nearly two
+                years of audio engineering experience.
+              </p>
+              <div class="service-tech">
+                <span class="tech-tag" data-i18n="tag-audio-engineering"
+                  >Audio Engineering</span
+                ><span class="tech-tag" data-i18n="tag-audacity">Audacity</span
+                ><span class="tech-tag" data-i18n="tag-flac-files"
+                  >.FLAC Files</span
+                >
+              </div>
+              <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            </div>
+            <div class="service-card">
+              <div class="card-number">03</div>
+              <div class="service-header">
+                <h3 data-i18n="service-5-title">Montage</h3>
+                <span class="service-status" data-i18n="service-5-status"
+                  >Live</span
+                >
+              </div>
+              <p class="service-desc" data-i18n="service-5-desc">
+                I can make your reel go viral with modern video editing
+                techniques using DaVinci Resolve.
+              </p>
+              <div class="service-tech">
+                <span class="tech-tag" data-i18n="tag-montage">Montage</span
+                ><span class="tech-tag" data-i18n="tag-davinci-resolve"
+                  >DaVinci Resolve</span
+                ><span class="tech-tag" data-i18n="tag-video-editing"
+                  >Video Editing</span
+                >
+              </div>
+              <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            </div>
+            <div class="service-card">
+              <div class="card-number">04</div>
+              <div class="service-header">
+                <h3 data-i18n="service-6-title">Photo Editor</h3>
+                <span class="service-status" data-i18n="service-6-status"
+                  >Live</span
+                >
+              </div>
+              <p class="service-desc" data-i18n="service-6-desc">
+                I can help your youtube videos get more views with clean,
+                engaging visuals and thumbnails for video and social media using
+                Affinity, GIMP, and Inkscape.
+              </p>
+              <div class="service-tech">
+                <span class="tech-tag" data-i18n="tag-photo-thumbnail-editing"
+                  >Photo/Thumbnail Editing</span
+                ><span class="tech-tag" data-i18n="tag-gimp">GIMP</span
+                ><span class="tech-tag" data-i18n="tag-inkscape">Inkscape</span>
+              </div>
+              <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            </div>
+            <div class="service-card">
+              <div class="card-number">05</div>
+              <div class="service-header">
+                <h3 data-i18n="service-7-title">UI/UX Design</h3>
+                <span class="service-status" data-i18n="service-7-status"
+                  >Live</span
+                >
+              </div>
+              <p class="service-desc" data-i18n="service-7-desc">
+                I can help your app has better User Interfaces and User
+                Experiences with clean, intuitive user interfaces and
+                experiences using Figma and Penpot.
+              </p>
+              <div class="service-tech">
+                <span class="tech-tag" data-i18n="tag-ui-ux-design"
+                  >UI/UX Design</span
+                ><span class="tech-tag" data-i18n="tag-figma">Figma</span
+                ><span class="tech-tag" data-i18n="tag-penpot">Penpot</span>
+              </div>
+              <i class="fas fa-arrow-up-right-from-square card-arrow"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- About: working principles and availability. -->
+      <section id="about" class="about">
+        <div class="container split-section">
+          <div>
+            <span class="section-index">[ 02 ]</span>
+            <h2 class="section-title" data-i18n="about-title">
+              From Development to Design
+            </h2>
+            <p class="about-lead" data-i18n="about-text">
+              I combine web development, UI/UX design, and montage to create
+              clean, engaging digital experiences.
+            </p>
+          </div>
+          <div class="about-points">
+            <div class="point">
+              <i class="fas fa-rocket"></i>
+              <div>
+                <h4 data-i18n="about-1-title">Fast Turnaround</h4>
+                <p data-i18n="about-1-desc">Delivery within 48 hours.</p>
+              </div>
+            </div>
+            <div class="point">
+              <i class="fas fa-bolt"></i>
+              <div>
+                <h4 data-i18n="about-2-title">Detail-Oriented</h4>
+                <p data-i18n="about-2-desc">
+                  Precise delivery with careful attention to detail.
+                </p>
+              </div>
+            </div>
+            <div class="point">
+              <i class="fas fa-calendar-check"></i>
+              <div>
+                <h4 data-i18n="about-3-title">Available Now</h4>
+                <p data-i18n="about-3-desc">
+                  Accepting work <strong>worldwide</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Donation: Patreon support call-to-action. -->
+      <section id="donation" class="donation">
+        <div class="container donation-layout">
+          <div class="donation-copy">
+            <span class="section-index">[ 03 ]</span>
+            <h2 class="donation-title" data-i18n="donation-title">
+              Support me on Patreon.
+            </h2>
+            <p class="donation-text" data-i18n="donation-text">
+              If you appreciate my work and want to support me, a little
+              Donation won't hurt. Click on the Glowing Heart to consider
+              donating to me. Thank you!
+            </p>
+          </div>
+          <a
+            class="donation-heart heart-glow"
+            href="https://patreon.com/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Support me on Patreon"
+            ><i class="fas fa-heart"></i
+          ></a>
+        </div>
+      </section>
+      <!-- Skills: grouped technologies and current experience areas. -->
+      <section id="skills" class="skills">
+        <div class="container">
+          <div class="section-heading">
+            <span class="section-index">[ 04 ]</span>
+            <h2 class="section-title" data-i18n="skills-title">
+              Skills & Stack
+            </h2>
+          </div>
+          <div class="skills-grid">
+            <div class="skill-category">
+              <h3>
                 <i class="fas fa-code"></i>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Services Section -->
-<section id="services" class="services">
-    <div class="container">
-        <h2 class="section-title" data-i18n="services-title">How can I help you?</h2>
-        <div class="services-grid">
-            
-            <!-- Service 1 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-1-title">Front-End Developer</h3>
-                    <span class="service-status" data-i18n="service-1-status">Live</span>
-                </div>
-                <p class="service-desc" data-i18n="service-1-desc">I build responsive, accessible websites using modern HTML, CSS, and JavaScript.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-html">HTML</span>
-                    <span class="tech-tag" data-i18n="tag-css">CSS</span>
-                    <span class="tech-tag" data-i18n="tag-javascript">JavaScript</span>
-                </div>
-            </div>
-            <!-- Service 2 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-2-title">Podcast Editing</h3>
-                    <span class="service-status" data-i18n="service-2-status">Live</span>
-                </div>
-                <p class="service-desc" data-i18n="service-2-desc">I edit and produce podcasts with nearly two years of audio engineering experience.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-audio-engineering">Audio Engineering</span>
-                    <span class="tech-tag" data-i18n="tag-audacity">Audacity</span>
-                    <span class="tech-tag" data-i18n="tag-flac-files">.FLAC Files</span>
-                </div>
-            </div>
-            <!-- Service 3 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-3-title">Translation Services</h3>
-                    <span class="service-status" data-i18n="service-3-status">Live</span>
-                </div>
-                <p class="service-desc" data-i18n="service-3-desc">I translate between English and Arabic.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-listening">Listening</span>
-                    <span class="tech-tag" data-i18n="tag-speaking">Speaking</span>
-                    <span class="tech-tag" data-i18n="tag-writing">Writing</span>
-                    <span class="tech-tag" data-i18n="tag-translation">Translation</span>
-                    <span class="tech-tag" data-i18n="tag-grammar">Grammar</span>
-                </div>
-            </div>
-            <!-- Service 4 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-4-title">Virtual Assistant</h3>
-                    <span class="service-status" data-i18n="service-4-status">Live</span>
-                </div>
-                <p class="service-desc" data-i18n="service-4-desc">I provide reliable virtual assistance for day-to-day tasks and coordination, with experience in Notion, Zoom, and office suites.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-communication">Communication</span>
-                    <span class="tech-tag" data-i18n="tag-problem-solving">Problem Solving</span>
-                    <span class="tech-tag" data-i18n="tag-time-management">Time Management</span>
-                    <span class="tech-tag" data-i18n="tag-notion">Notion</span>
-                    <span class="tech-tag" data-i18n="tag-libreoffice-onlyoffice">LibreOffice/OnlyOffice</span>
-                </div>
-            </div><!-- Service 5 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-5-title">Montage</h3>
-                    <span class="service-status" data-i18n="service-5-status">In Progress</span>
-                </div>
-                <p class="service-desc" data-i18n="service-5-desc">Modern video editing and montage using DaVinci Resolve and Kdenlive.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-montage">Montage</span>
-                    <span class="tech-tag" data-i18n="tag-davinci-resolve">DaVinci Resolve</span>
-                    <span class="tech-tag" data-i18n="tag-video-editing">Video Editing</span>
-                    <span class="tech-tag" data-i18n="tag-kdenlive">Kdenlive</span>
-                </div>
-            </div><!-- Service 6 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-6-title">Photo/Thumbnail Editor</h3>
-                    <span class="service-status" data-i18n="service-6-status">In Progress</span>
-                </div>
-                <p class="service-desc" data-i18n="service-6-desc">Creating clean, engaging visuals and thumbnails for video and social media using GIMP and Inkscape.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-photo-thumbnail-editing">Photo/Thumbnail Editing</span>
-                    <span class="tech-tag" data-i18n="tag-gimp">GIMP</span>
-                    <span class="tech-tag" data-i18n="tag-inkscape">Inkscape</span>
-                </div>
-            </div>
-             <!-- Service 7 -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3 data-i18n="service-7-title">UI/UX Design</h3>
-                    <span class="service-status" data-i18n="service-7-status">In Progress</span>
-                </div>
-                <p class="service-desc" data-i18n="service-7-desc">Designing clean, intuitive user interfaces and experiences using Figma and Penpot.</p>
-                <div class="service-tech">
-                    <span class="tech-tag" data-i18n="tag-ui-ux-design">UI/UX Design</span>
-                    <span class="tech-tag" data-i18n="tag-figma">Figma</span>
-                    <span class="tech-tag" data-i18n="tag-penpot">Penpot</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- About Section -->
-<section id="about" class="about">
-    <div class="container">
-        <div class="about-content">
-            <h2 class="section-title" data-i18n="about-title">From Development to Design</h2>
-            <p data-i18n="about-text">I combine web development، UI/UX design, and montage to create clean, engaging digital experiences.</p>
-            <div class="about-points">
-                <div class="point">
-                    <i class="fas fa-rocket"></i>
-                    <div>
-                        <h4 data-i18n="about-1-title">Fast Turnaround</h4>
-                        <p data-i18n="about-1-desc">Delivery within 48 hours.</p>
-                    </div>
-                </div>
-                <div class="point">
-                    <i class="fas fa-bolt"></i>
-                    <div>
-                        <h4 data-i18n="about-2-title">Detail-Oriented</h4>
-                        <p data-i18n="about-2-desc">Precise delivery with careful attention to detail.</p>
-                    </div>
-                </div>
-                <div class="point">
-                    <i class="fas fa-calendar-check"></i>
-                    <div>
-                        <h4 data-i18n="about-3-title">Available Now</h4>
-                        <p data-i18n="about-3-desc">Accepting work <strong>worldwide</strong>.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Donation Section -->
-<section id="donation" class="donation">
-    <div class="container">
-        <div class="donation-copy">
-            <h2 class="donation-title" data-i18n="donation-title">Support me on Patreon.</h2>
-            <p class="donation-text" data-i18n="donation-text">If you appreciate my work and want to support me, a little Donation won't hurt. Click on the Glowing Heart to consider donating to me. Thank you!</p>
-        </div>
-        <a class="donate-link donation-heart" href="https://patreon.com/ngompoweredbypoi" target="_blank" rel="noopener noreferrer" aria-label="Support me on Patreon" title="Support me on Patreon">
-            <i class="fas fa-heart" aria-hidden="true"></i>
-        </a>
-    </div>
-</section>
-
-<!-- Skills Section -->
-<section id="skills" class="skills">
-    <div class="container">
-        <h2 class="section-title" data-i18n="skills-title">Skills & Stack</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3><i class="fas fa-code"></i> <span data-i18n="skills-frontend">Front-End</span></h3>
-                <ul>
-                    <li>HTML5 & CSS3</li>
-                    <li>JavaScript (in progress)</li>
-                    <li>Responsive Design</li>
-                </ul>
+                <span data-i18n="skills-frontend">Front-End</span>
+              </h3>
+              <ul>
+                <li>HTML5 & CSS3</li>
+                <li>JavaScript (experiencing)</li>
+                <li>Responsive Design</li>
+              </ul>
             </div>
             <div class="skill-category">
-                <h3><i class="fas fa-tools"></i> <span data-i18n="skills-tools">Tools</span></h3>
-                <ul>
-                    <li>Git & GitHub</li>
-                    <li>VS Code</li>
-                    <li>Audacity</li>
-                </ul>
+              <h3>
+                <i class="fas fa-tools"></i>
+                <span data-i18n="skills-tools">Tools</span>
+              </h3>
+              <ul>
+                <li>Git & GitHub</li>
+                <li>VS Code</li>
+                <li>Audacity</li>
+              </ul>
             </div>
             <div class="skill-category">
-                <h3><i class="fas fa-graduation-cap"></i> <span data-i18n="skills-learning">Learning</span></h3>
-                <ul>
-                    <li>UI/UX Design</li>
-                    <li>Montage</li>
-                    <li>Photo Editing</li>
-                </ul>
+              <h3>
+                <i class="fas fa-compass"></i>
+                <span data-i18n="skills-serving">Serving</span>
+              </h3>
+              <ul>
+                <li>UI/UX Design</li>
+                <li>Montage</li>
+                <li>Photo Editing</li>
+              </ul>
             </div>
+          </div>
         </div>
-    </div>
-</section>
-
-<!-- Contact CTA -->
-<section id="contact" class="contact">
-    <div class="container">
-        <h2 data-i18n="contact-title">Need a service?</h2>
-        <p data-i18n="contact-text">Let’s build what you need. I’m available to start <strong data-i18n="contact-rn">now</strong>.</p>
-        <a href="#" class="btn-primary btn-large" id="hire-me-trigger-contact">
-            <i class="fas fa-paper-plane"></i> <span data-i18n="contact-hire">Hire Me</span>
-        </a>
-        <div class="social-links">
-            <a href="https://github.com/ngompoweredbypoi" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/ngompoweredbypoi" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://t.me/ngompoweredbypoi" target="_blank"><i class="fab fa-telegram"></i></a>
+      </section>
+      <!-- Projects: portfolio showcase call-to-action on LinkedIn. -->
+      <section id="projects" class="donation">
+        <div class="container donation-layout">
+          <div class="donation-copy">
+            <span class="section-index">[ 05 ]</span>
+            <h2 class="donation-title" data-i18n="projects-title">Projects</h2>
+            <p class="donation-text" data-i18n="projects-text">
+              I've made a lot of projects over the past 3 years, from building
+              websites, audio perfection, and video thumbnails, to montage and
+              UI/UX design. If you would like to see my projects, click the
+              LinkedIn Icon.
+            </p>
+          </div>
+          <a
+            class="project-link"
+            href="https://www.linkedin.com/in/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View my projects on LinkedIn"
+            title="View my projects on LinkedIn"
+            ><i class="fab fa-linkedin" aria-hidden="true"></i
+          ></a>
         </div>
-    </div>
-</section>
-
-<!-- Hire Modal -->
-<div class="modal" id="hire-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="hire-modal-title">
-    <div class="modal__backdrop" data-modal-close></div>
-    <div class="modal__panel" role="document">
+      </section>
+      <!-- Contact: final conversion area and social links. -->
+      <section id="contact" class="contact">
+        <div class="container contact-inner">
+          <span class="section-index">[ READY WHEN YOU ARE ]</span>
+          <h2 data-i18n="contact-title">Need a service?</h2>
+          <p data-i18n="contact-text">
+            Let’s build what you need. I’m available to start
+            <strong data-i18n="contact-rn">now</strong>.
+          </p>
+          <a href="#" class="btn-primary" id="hire-me-trigger-contact"
+            ><i class="fas fa-paper-plane"></i>
+            <span data-i18n="contact-hire">Hire Me</span></a
+          >
+          <div class="social-links">
+            <a
+              href="https://github.com/ngompoweredbypoi"
+              target="_blank"
+              aria-label="GitHub"
+              ><i class="fab fa-github"></i></a
+            ><a
+              href="https://www.linkedin.com/in/ngompoweredbypoi"
+              target="_blank"
+              aria-label="LinkedIn"
+              ><i class="fab fa-linkedin"></i></a
+            ><a
+              href="https://t.me/ngompoweredbypoi"
+              target="_blank"
+              aria-label="Telegram"
+              ><i class="fab fa-telegram"></i
+            ></a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Hire modal: platform links shared by the navigation, contact, and cards. -->
+    <div
+      class="modal"
+      id="hire-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="hire-modal-title"
+    >
+      <div class="modal__backdrop" data-modal-close></div>
+      <div class="modal__panel" role="document">
         <div class="modal__header">
-            <h3 class="modal__title" id="hire-modal-title" data-i18n="hire-modal-title">Hire Options</h3>
-            <button class="modal__close" type="button" aria-label="Close" data-modal-close>&times;</button>
+          <h3
+            class="modal__title"
+            id="hire-modal-title"
+            data-i18n="hire-modal-title"
+          >
+            Hire Options
+          </h3>
+          <button
+            class="modal__close"
+            type="button"
+            aria-label="Close"
+            data-modal-close
+          >
+            &times;
+          </button>
         </div>
-        <div class="modal__body">
-            <div class="modal__actions">
-                <a class="modal__btn" href="https://www.upwork.com/freelancers/~0129f83cc95f528f00" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-briefcase" aria-hidden="true"></i>
-                    <span data-i18n="hire-upwork">Hire me on Upwork</span>
-                </a>
-                <a class="modal__btn" href="https://www.freelancer.com/u/ngompoweredbypoi" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-handshake" aria-hidden="true"></i>
-                    <span data-i18n="hire-freelancer">Hire me on Freelancer.com</span>
-                </a>
-                <a class="modal__btn" href="https://www.guru.com/freelancers/muhammed-mokhtar" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-user-tie" aria-hidden="true"></i>
-                    <span data-i18n="hire-guru">Hire me on Guru.com</span>
-                </a>
-                <a class="modal__btn" href="https://hubstafftalent.net/profiles/muhammed-mokhtar" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-users" aria-hidden="true"></i>
-                    <span data-i18n="hire-hubstaff">Hire me on Hubstaff Talent</span>
-                </a>
-                <a class="modal__btn" href="https://www.linkedin.com/in/ngompoweredbypoi" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-linkedin" aria-hidden="true"></i>
-                    <span data-i18n="hire-linkedin">Hire me on LinkedIn</span>
-                </a>
-                <a class="modal__btn" href="https://mostaql.com/u/ngompoipowered" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-briefcase" aria-hidden="true"></i>
-                    <span data-i18n="hire-mostaql">Hire me on Mostaql.com</span>
-                </a>
-                <a class="modal__btn" href="https://t.me/ngompoweredbypoi" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-telegram" aria-hidden="true"></i>
-                    <span data-i18n="hire-telegram">Hire me on Telegram</span>
-                </a>
-            </div>
+        <div class="modal__actions">
+          <a
+            class="modal__btn"
+            href="https://www.upwork.com/freelancers/~0129f83cc95f528f00"
+            target="_blank"
+            rel="noopener"
+            ><i class="fas fa-briefcase"></i>
+            <span data-i18n="hire-upwork">Hire me on Upwork</span></a
+          ><a
+            class="modal__btn"
+            href="https://www.freelancer.com/u/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener"
+            ><i class="fas fa-handshake"></i>
+            <span data-i18n="hire-freelancer"
+              >Hire me on Freelancer.com</span
+            ></a
+          ><a
+            class="modal__btn"
+            href="https://www.guru.com/freelancers/muhammed-mokhtar"
+            target="_blank"
+            rel="noopener"
+            ><i class="fas fa-user-tie"></i>
+            <span data-i18n="hire-guru">Hire me on Guru.com</span></a
+          ><a
+            class="modal__btn"
+            href="https://hubstafftalent.net/profiles/muhammed-mokhtar"
+            target="_blank"
+            rel="noopener"
+            ><i class="fas fa-users"></i>
+            <span data-i18n="hire-hubstaff">Hire me on Hubstaff Talent</span></a
+          ><a
+            class="modal__btn"
+            href="https://www.linkedin.com/in/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener"
+            ><i class="fab fa-linkedin"></i>
+            <span data-i18n="hire-linkedin">Hire me on LinkedIn</span></a
+          ><a
+            class="modal__btn"
+            href="https://mostaql.com/u/ngompoipowered"
+            target="_blank"
+            rel="noopener"
+            ><i class="fas fa-briefcase"></i>
+            <span data-i18n="hire-mostaql">Hire me on Mostaql.com</span></a
+          ><a
+            class="modal__btn"
+            href="https://t.me/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener"
+            ><i class="fab fa-telegram"></i>
+            <span data-i18n="hire-telegram">Hire me on Telegram</span></a
+          >
         </div>
+      </div>
     </div>
-</div>
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <p class="footer-sub"><span data-i18n="footer-copyright">&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All rights reserved.</span></p>
-        <p class="footer-sub" data-i18n="footer-text">Built by Mokho (my nickname).</p>
-        <p class="footer-sub"><a class="footer-source-link" href="https://github.com/ngompoweredbypoi/ngompoweredbypoi
-            " target="_blank" rel="noopener noreferrer" data-i18n="footer-source">Website Source Code</a></p>
+    <!-- Footer: ownership, attribution, and source-code link. -->
+    <footer>
+      <div class="container">
+        <p class="footer-sub">
+          <span data-i18n="footer-copyright"
+            >&copy; <span id="current-year">2026</span> Muhammed Mokhtar. All
+            rights reserved.</span
+          >
+        </p>
+        <p class="footer-sub" data-i18n="footer-text">
+          Built by Mokho (my nickname).
+        </p>
+        <p class="footer-sub">
+          <a
+            class="footer-source-link"
+            href="https://github.com/ngompoweredbypoi/ngompoweredbypoi"
+            target="_blank"
+            rel="noopener"
+            data-i18n="footer-source"
+            >Website Source Code</a
+          >
+        </p>
+      </div>
+    </footer>
+    <!-- Cookie consent is managed by script.js and hidden after a choice. -->
+    <div id="cookie-banner">
+      <div class="cookie-text" data-i18n="cookie-notice">
+        We use cookies to detect your location and provide a better experience.
+        Do you accept?
+      </div>
+      <div class="cookie-buttons">
+        <button
+          id="cookie-accept"
+          class="cookie-btn cookie-accept"
+          data-i18n="cookie-accept"
+        >
+          Accept</button
+        ><button
+          id="cookie-reject"
+          class="cookie-btn cookie-reject"
+          data-i18n="cookie-reject"
+        >
+          Reject
+        </button>
+      </div>
     </div>
-</footer>
-
-<!-- Cookie Consent -->
-<div id="cookie-banner">
-    <div class="cookie-text" data-i18n="cookie-notice">We use cookies to detect your location and provide a better experience. Do you accept?</div>
-    <div class="cookie-buttons">
-        <button id="cookie-accept" class="cookie-btn cookie-accept" data-i18n="cookie-accept">Accept</button>
-        <button id="cookie-reject" class="cookie-btn cookie-reject" data-i18n="cookie-reject">Reject</button>
-    </div>
-</div>
-
-<!-- JavaScript -->
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
