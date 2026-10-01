@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
       "nav-language": "العربية",
       // Hero Section
       "hero-title":
-        'من <span class="highlight">صفر</span> لـ <span class="highlight">بطل</span> —بـ€20 في الساعة.',
-      "hero-subtitle": "مطور Frontend · مهندس صوت · مصمم UI/UX",
+        'من <span class="highlight">الخام</span> إلى <span class="highlight">النسخة النهائية</span> – بـ€20 في الساعة.',
+      "hero-subtitle": "محرّر فيديو وبودكاست – شورتس · ريلز · مونتاج · صوت",
       "hero-button-services": "شوف الخدمات",
       "hero-button-github": "GitHub",
 
@@ -43,28 +43,28 @@ document.addEventListener("DOMContentLoaded", function () {
       "service-1-title": "مطور واجهات أمامية",
       "service-1-status": "متاح",
       "service-1-desc":
-        "بعمل مواقع Responsive وسهلة الاستخدام بـ HTML وCSS وJavaScript الحديثة.",
+        "بأساعدك يبقى ليك موقع ودومين خاص بيك يجيبلك عملاء أونلاين – بـ HTML وCSS وJavaScript حديثة.",
       "service-2-title": "تحرير بودكاست",
       "service-2-status": "متاح",
       "service-2-desc":
-        "بمنتج وبحرّر بودكاست بخبرة حوالي سنتين في هندسة الصوت.",
-      "service-5-title": "مونتاج",
+        "بحّرر حلقات البودكاست من الأول للآخر – تنظيف، تقليل ضوضاء، وتوازن صوت – عشان قناتك تنزل في وقتها بدل ما تتركن في فولدر.",
+      "service-5-title": "تحرير فيديو ومونتاج",
       "service-5-status": "متاح",
       "service-5-desc":
-        "مونتاج وتحرير فيديو حديث باستخدام DaVinci Resolve و Kdenlive.",
-      "service-6-title": "تصميم صور/ثَمبنيل",
+        "بحوّل تسجيلاتك الطويلة لشورتس وريلز تمسك المشاهد – هوك من أول ثانيتين، وكابشن مدمج، على DaVinci Resolve.",
+      "service-6-title": "ثَمبنيلز وجرافيك",
       "service-6-status": "متاح",
       "service-6-desc":
-        "بصمّم ثَمبنيلز ومرئيات جذابة للفيديو ومحتوى السوشيال ميديا باستخدام GIMP وInkscape.",
+        "بصمّم ثَمبنيلز وجرافيك على ستايل قناتك ويبانوا وسط الفيد – بـ GIMP وInkscape وAffinity.",
       "service-7-title": "تصميم UI/UX",
       "service-7-status": "متاح",
       "service-7-desc":
-        "بصمّم واجهات وتجربة استخدام بسيطة وواضحة باستخدام Figma وPenpot.",
+        "بصمّم واجهات بسيطة وواضحة لموقعك أو تطبيقك – من الوايرفريم لحد بروتوتايب جاهز على Figma وPenpot.",
 
       // Donation
       "donation-title": "ادعمني على Patreon.",
       "donation-text":
-        "لو شغلي عاجبك وعايز تدعمني، تبرع بسيط مش هيضر. دوس على القلب المنوّر عشان تفكّر تتبرعلي. الف شكر مقدما!",
+        "لو شغلي أفادك، تقدر تدعمني على Patreon – ده بيخلّي المشاريع شغّالة ومجانية. شكراً!",
 
       // Skills
       "skills-title": "المهارات والتقنيات",
@@ -75,12 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // Projects
       "projects-title": "المشاريع",
       "projects-text":
-        "عملت مشاريع كتير خلال آخر 3 سنين، من بناء المواقع وهندسة الصوت وتصميم الصور المصغرة للفيديو، لحد المونتاج وتصميم UI/UX. لو حابب تشوف مشاريعي، زور صفحتي على LinkedIn.",
+        "تلات سنين شغل: بودكاست أسبوعي عن التاريخ والقانون بحّرره من الأول للآخر (شغّال على Spotify)، والموقع ده نفسه، ومونتاجات وثَمبنيلز. القايمة كاملة على LinkedIn – والعينات قبل/بعد جاية هنا قريب.",
 
       // About
-      "about-title": "من التطوير للتصميم",
+      "about-title": "من البودكاست للريلز",
       "about-text":
-        "بجمع بين تطوير الويب، تصميم UI/UX، والمونتاج عشان أطلع تجربة شكلها حلو وسهلة الاستخدام.",
+        "بحّرر بودكاست، وأقطّع فيديوهات قصيرة، وأصمّم الجرافيك اللي بيمشي معاهم – ومعايا كمان مهارات الويب اللي بتبني الصفحة اللي تنشر عليها.",
       "about-1-title": "تسليم سريع",
       "about-1-desc": "تسليم في خلال 48 ساعة.",
       "about-2-title": "عين للتفاصيل",
@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "hire-linkedin": "شغّلني على LinkedIn",
       "hire-telegram": "كلّمني على تيليجرام",
       "hire-mostaql": "شغّلني على مستقل",
+      "hire-email": "كلّمني على الإيميل",
 
       // Footer
       "footer-text": "تم عمله بواسطة موخو (لقبي).",
@@ -130,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "tag-video-editing": "تحرير الفيديو",
       "tag-writing": "كتابة",
       "cookie-notice":
-        "نحن نستخدم ملفات تعريف الارتباط لمعرفة موقعك وتوفير تجربة أفضل. هل توافق؟",
+        "بنحفظ ملف تعريف ارتباط صغير عشان نفتكر اختيارك للغة وإعداداتك. موافق؟",
       "cookie-accept": "موافق",
       "cookie-reject": "أرفض",
     },
@@ -172,6 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Language preference order: cookie, legacy localStorage value, system locale.
+  // (A GeoIP lookup used to run here to guess the country; it was unreachable
+  //  because the system locale always resolves first, and it was the only thing
+  //  the consent banner's "detect your location" wording referred to. Removed so
+  //  the site makes no third-party requests on load.)
   function getSavedLangCode() {
     // 1) Cookie (highest priority)
     const cookieLang = getCookie(LANG_KEY);
@@ -195,68 +200,12 @@ document.addEventListener("DOMContentLoaded", function () {
     return /^ar(?:-|$)/i.test(browserLang) ? "ar" : "en";
   }
 
-  function isArabicCountry(countryCode) {
-    // Arabic-speaking / MENA countries (best-effort, not perfect)
-    const arCountries = new Set([
-      "AE",
-      "BH",
-      "DJ",
-      "DZ",
-      "EG",
-      "IQ",
-      "JO",
-      "KW",
-      "LB",
-      "LY",
-      "MA",
-      "MR",
-      "OM",
-      "PS",
-      "QA",
-      "SA",
-      "SD",
-      "SO",
-      "SY",
-      "TN",
-      "YE",
-    ]);
-    return arCountries.has(String(countryCode || "").toUpperCase());
-  }
-
-  async function getIpBasedLangCode() {
-    // Calls a third-party GeoIP endpoint. If it fails, we fall back gracefully.
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2500);
-    try {
-      const res = await fetch("https://ipapi.co/json/", {
-        signal: controller.signal,
-        headers: { Accept: "application/json" },
-      });
-      if (!res.ok) return null;
-      const data = await res.json();
-      const country = data && (data.country_code || data.country);
-      if (!country) return null;
-      return isArabicCountry(country) ? "ar" : "en";
-    } catch {
-      return null;
-    } finally {
-      clearTimeout(timeoutId);
-    }
-  }
-
   async function detectPreferredLangCode() {
-    // Priority: cookie/localStorage > browser/system locale > IP-based > default
+    // Priority: saved preference (cookie/localStorage) > browser/system locale.
     const saved = getSavedLangCode();
     if (saved) return saved;
 
-    const systemLang = getSystemLangCode();
-    if (systemLang === "ar" || systemLang === "en") return systemLang;
-
-    const ipLang = await getIpBasedLangCode();
-    if (ipLang === "ar" || ipLang === "en") return ipLang;
-
-    // If GeoIP fails (blocked, offline, adblock, etc.), default to English.
-    return "en";
+    return getSystemLangCode();
   }
 
   // Apply translations without replacing the data attributes used by future toggles.
